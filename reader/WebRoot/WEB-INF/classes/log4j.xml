@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+      
+   <!-- 在控制台输出，级别从debug开始，在生产环境中建议把级别调高    -->     
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.out" />
+		<!-- 信息显示样式 -->							
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" 			
+				value="%p [%d{yyyy-MM-dd HH:mm:ss.SSS}] %-20.70C{4} %x %m%n" />
+		</layout>
+		<!--过滤器设置输出的级别--> 
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">  
+            <param name="levelMin" value="debug" />  
+            <param name="levelMax" value="fatal" />  
+            <param name="AcceptOnMatch" value="true" />  
+        </filter> 
+	</appender>
+	
+	<!-- 向指定文件（tocmat下的logs/ServerLog.log）输出错误级别的日志    文件达到指定大小时，会自动产生新文件-->
+	<appender name="log_file" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/reader.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="1024kb" />
+		<param name="MaxBackupIndex" value="100" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5p %-40.70C{4} %x-%m%n" />
+		</layout>	
+		 <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+            <param name="levelMin" value="info" />  
+            <param name="levelMax" value="warn" />  
+            <param name="AcceptOnMatch" value="true" />  
+        </filter> 
+	</appender>
+	
+	<!-- 向指定文件（tocmat下的logs/ServerLog_Error.log）输出错误级别的日志    文件达到指定大小时，会自动产生新文件-->
+	<appender name="error_log_file" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/reader_Error.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="1024kb" />
+		<param name="MaxBackupIndex" value="100" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5p %-40.70C{4} %x-%m%n" />
+		</layout>	
+		  <!--过滤器设置输出的级别-->  
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+            <param name="levelMin" value="error" />  
+            <param name="levelMax" value="error" />  
+            <param name="AcceptOnMatch" value="true" />  
+        </filter> 
+	</appender>
+	
+	<!-- spring框架的日志输出 -->
+	<logger name="org.springframework">
+		<level value="error" />		
+	</logger>
+	
+	<!-- Hibernate -->
+	<logger name="org.hibernate">
+		<level value="error" />
+	</logger>
+	
+	<!-- Apache Commons -->
+	<logger name="org.apache.commons">
+		<level value="error" />		
+	</logger> 
+	
+	<!-- Apache Jasper -->
+	<logger name="org.apache.jasper">
+		<level value="error" />		
+		<appender-ref ref="log_file" />
+	</logger>
+	
+	<!-- Apache Catalina -->
+	<logger name="org.apache.catalina">
+		<level value="info" />
+	</logger>
+	
+	<logger name="net">
+		<level value="info" />	
+	</logger>
+	
+	<!-- struts日志 -->
+	<logger name="com.opensymphony.xwork2">  
+    	<level value="error" />  
+	</logger>  
+	<logger name="org.apache.struts2">  
+   	 	<level value="error" />  
+	</logger>
+	
+	<!-- 项目日志 -->
+	<logger name="cn.edu.school.scampus">
+		<level value="debug" />
+	</logger>
+	 
+	<!--Log Level Order: debug < info < warn < error < fatal -->
+	<root>
+		<!-- 定义全局的日志输出级别，但是在输出目的地的配置优先级高于全局的优先级(即，logger配置了level的话，那么将使用logger的level，否则使用root的level)-->
+		<priority value="info" />
+		
+		<appender-ref ref="stdout" />
+		<appender-ref ref="log_file" />
+		<appender-ref ref="error_log_file" /> 
+	</root>	
+		
+</log4j:configuration>
