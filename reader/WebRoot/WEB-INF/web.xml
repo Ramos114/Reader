@@ -78,8 +78,8 @@
 	</jsp-config>
 	<!-- /菜单 -->
 	
-	<!-- <context-param>
+	<context-param>
 		<param-name>webAppRootKey</param-name>
 		<param-value>myapp.root</param-value>
-	</context-param> -->
+	</context-param>
 </web-app>
