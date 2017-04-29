@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     
-    <title>电商管理系统</title>
+    <title>移动阅读系统</title>
     
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />

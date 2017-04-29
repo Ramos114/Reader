@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>reader</display-name>
   <welcome-file-list>
-		<welcome-file>/shopLogin.jsp</welcome-file>
+		<welcome-file>/readerLogin.jsp</welcome-file>
 	</welcome-file-list>
 	
 	<!-- 编码过滤器char encode filter -->
@@ -26,7 +26,7 @@
 	<!-- 登录过滤器 -->
 	<filter>
 		<filter-name>LoginFilter</filter-name>
-		<filter-class>cn.shop.core.filter.LoginFilter</filter-class>
+		<filter-class>cn.reader.core.filter.LoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
@@ -35,7 +35,7 @@
 	</filter-mapping>
 	<!-- Session过期  监听器 -->
 	<listener>
-		<listener-class>cn.shop.core.filter.LoginSessionListener</listener-class>
+		<listener-class>cn.reader.core.filter.LoginSessionListener</listener-class>
 	</listener>
 	<session-config>
 	  <session-timeout>120</session-timeout>
@@ -46,7 +46,7 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<listener>
-		<listener-class>cn.shop.core.init.SpringContextLoaderListener</listener-class>
+		<listener-class>cn.reader.core.init.SpringContextLoaderListener</listener-class>
 	</listener>
     <context-param>  
         <param-name>log4jConfigLocation</param-name>  
@@ -73,7 +73,7 @@
 	<jsp-config>
 		<taglib>
 			<taglib-uri>menuTag</taglib-uri>
-			<taglib-location>/WEB-INF/tlds/shopTags.tld</taglib-location>
+			<taglib-location>/WEB-INF/tlds/readerTags.tld</taglib-location>
 		</taglib>
 	</jsp-config>
 	<!-- /菜单 -->
