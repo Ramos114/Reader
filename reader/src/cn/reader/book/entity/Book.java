@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import cn.reader.core.base.BaseEntity;
@@ -29,11 +30,11 @@ public class Book extends BaseEntity{
 	@Column(unique=true)	
 	private String bookNo;
 	
-	/**
-	 * 字数
+	/*
+	 * 章节数目
 	 */
-	@Column
-	private Integer word_count;
+	@Column	
+	private Integer chapter_count;
 	
 	/**
 	 * 图书标题
@@ -47,29 +48,45 @@ public class Book extends BaseEntity{
 	@Column
 	private String summary;
 	
-	/*
-	 * 是否完结(true或false)
+	/**
+	 * 总字数
 	 */
-	@Column	
-	private String finish;
+	@Column
+	private Integer word_count;
 	
 	/*
-	 * 作者
+	 * 是否完结
+	 * 0,1
 	 */
 	@Column	
-	private String authors;
+	private String isFinish;
+	
+	/*
+	 * 是否本周最火
+	 * 0,1
+	 */
+	@Column	
+	private String hot;
+	
+	/*
+	 * 是否重磅推荐
+	 * 0,1
+	 */
+	@Column	
+	private String recommend;
 	
 	/**
 	 * 版权
 	 */
 	@Column
 	private String rights;
-	
-	/**
-	 * 最新章节内容(如：第二十七章 缠斗)
+
+	/*
+	 * 最新章节内容与章节存在一对一(如：第二十七章 缠斗)!
 	 */
-	@Column
-	private String lastest;
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn
+	private Chapter lastest;
 
 	/*
 	 * 评论数
@@ -83,26 +100,19 @@ public class Book extends BaseEntity{
 	@Column	
 	private String cover;
 	
+
 	/**
-	 * 类别标签
-	 */
-	@Column
-	private String tags;
-	
-	/**
-	 * 与类别存在多对一的关系
+	 * 与作者存在多对一的关系
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn
-	private Category category;
+	private Author author;
 	
-	
-	
-	/*
-	 * 与频道存在多对一的关系
+	/**
+	 * 与小类存在多对一的关系
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn
-	private Channel channel;
+	private Categories categories;
 
 }

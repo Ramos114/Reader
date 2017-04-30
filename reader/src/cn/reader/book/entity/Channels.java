@@ -14,8 +14,8 @@ import cn.reader.core.base.BaseEntity;
  * @author LMX
  *
  */
-@Entity
-@Table(name="boo_channels")
+/*@Entity
+@Table(name="boo_channels")*/
 public class Channels extends BaseEntity{
 	
 	/**

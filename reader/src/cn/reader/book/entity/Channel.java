@@ -11,16 +11,14 @@ import cn.reader.core.base.BaseEntity;
  * @author LMX
  *
  */
-@Entity
-@Table(name="boo_channel")
+/*@Entity
+@Table(name="boo_channel")*/
 public class Channel extends BaseEntity{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
 	
 	/**
 	 * 频道名称(男频、女频)
@@ -33,9 +31,5 @@ public class Channel extends BaseEntity{
 	 */
 	@Column
 	private String keyword;
-	
-	
-	
-	
 	
 }

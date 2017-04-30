@@ -8,44 +8,63 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import cn.reader.core.base.BaseEntity;
+import cn.reader.sys.entity.Role;
 
 /**
- * 分类类别(小类)  实体
+ * 作者 实体
  * @author LMX
- *
+ * 
  */
 @Entity
-@Table(name="boo_categories")
-public class Categories extends BaseEntity{
-
+@Table(name="boo_author")
+public class Author extends BaseEntity{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 用户名
+	 */
+	@Column(unique=true)
+	private String userName;
 	
 	/**
-	 * 类别标签
+	 * 登录密码
 	 */
 	@Column
-	private String label;
+	private String loginPassword;
 	
 	/**
-	 * 类别数量
+	 * 头像
 	 */
 	@Column
-	private Integer fiction_count;
+	private String imgUrl;
 	
 	/**
-	 * 类别封面 地址
+	 * 性别
 	 */
 	@Column
-	private String new_image;
+	private String gender;
 	
-	/*
-	 * 与分类(大类)存在多对一的关系
+	/**
+	 * 手机号
+	 */
+	@Column
+	private String phoneNumber;
+	
+	/**
+	 * 邮箱地址
+	 */
+	@Column
+	private String email;
+	
+	/**
+	 * 角色
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn
-	private Category category;
-	
+	private Role role;
+
 }
