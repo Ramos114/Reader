@@ -28,7 +28,7 @@ public class Author extends BaseEntity{
 	 * 用户名
 	 */
 	@Column(unique=true)
-	private String userName;
+	private String authorName;
 	
 	/**
 	 * 登录密码

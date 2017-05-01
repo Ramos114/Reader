@@ -1,4 +1,4 @@
-package cn.reader.book.entity;
+package cn.reader.other.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import cn.reader.book.entity.Book;
+import cn.reader.book.entity.Reader;
 import cn.reader.core.base.BaseEntity;
 
 /**

@@ -28,7 +28,7 @@ public class Reader extends BaseEntity{
 	 * 用户名
 	 */
 	@Column(unique=true)
-	private String userName;
+	private String readerName;
 	
 	/**
 	 * 登录密码

@@ -13,7 +13,7 @@
         <a href="#/" class="navbar-brand text-lt">
           <i><img src="${basePath }${pageContext.request.contextPath}/source/Angular/img/logo2.png" alt="." class=""></i>
          
-          <span class="hidden-folded m-l-none" style="">飞鱼后台管理</span>
+          <span class="hidden-folded m-l-none" style="">Read后台管理</span>
         </a>
         <!-- / brand -->
       </div>

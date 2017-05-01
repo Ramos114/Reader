@@ -68,3 +68,6 @@
    <!-- fileinput -->
 	<script src="${basePath }${pageContext.request.contextPath}/plugin/fileinput/js/fileinput.js"></script>
 	<script src="${basePath }${pageContext.request.contextPath}/plugin/fileinput/js/locales/zh.js"></script>
+	
+	<!-- Vue框架 -->
+	<script src="${basePath }${pageContext.request.contextPath}/js/vue.js"></script>

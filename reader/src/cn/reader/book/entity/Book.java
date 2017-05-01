@@ -66,14 +66,14 @@ public class Book extends BaseEntity{
 	 * 0,1
 	 */
 	@Column	
-	private String hot;
+	private String isHot;
 	
 	/*
 	 * 是否重磅推荐
 	 * 0,1
 	 */
 	@Column	
-	private String recommend;
+	private String isRecommend;
 	
 	/**
 	 * 版权
