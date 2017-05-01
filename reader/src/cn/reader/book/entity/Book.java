@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import cn.reader.core.base.BaseEntity;
@@ -30,12 +29,6 @@ public class Book extends BaseEntity{
 	@Column(unique=true)	
 	private String bookNo;
 	
-	/*
-	 * 章节数目
-	 */
-	@Column	
-	private Integer chapter_count;
-	
 	/**
 	 * 图书标题
 	 */
@@ -48,6 +41,12 @@ public class Book extends BaseEntity{
 	@Column
 	private String summary;
 	
+	/*
+	 * 章节数目
+	 */
+	@Column	
+	private Integer chapter_count;
+	
 	/**
 	 * 总字数
 	 */
@@ -56,21 +55,18 @@ public class Book extends BaseEntity{
 	
 	/*
 	 * 是否完结
-	 * 0,1
 	 */
 	@Column	
 	private String isFinish;
 	
 	/*
 	 * 是否本周最火
-	 * 0,1
 	 */
 	@Column	
 	private String isHot;
 	
 	/*
 	 * 是否重磅推荐
-	 * 0,1
 	 */
 	@Column	
 	private String isRecommend;
@@ -82,11 +78,10 @@ public class Book extends BaseEntity{
 	private String rights;
 
 	/*
-	 * 最新章节内容与章节存在一对一(如：第二十七章 缠斗)!
+	 * 最新章节内容(如：第二十七章 缠斗)!
 	 */
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn
-	private Chapter lastest;
+	@Column	
+	private String lastest;
 
 	/*
 	 * 评论数

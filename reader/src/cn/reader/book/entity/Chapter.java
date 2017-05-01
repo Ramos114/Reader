@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import cn.reader.core.base.BaseEntity;
 
 /**
- * 章节 实体
+ * 章节(目录) 实体
  * @author LMX
  *
  */

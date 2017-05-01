@@ -69,5 +69,5 @@
 	<script src="${basePath }${pageContext.request.contextPath}/plugin/fileinput/js/fileinput.js"></script>
 	<script src="${basePath }${pageContext.request.contextPath}/plugin/fileinput/js/locales/zh.js"></script>
 	
-	<!-- Vue框架 -->
+	<!-- Vue框架,用于客户端渲染数据 -->
 	<script src="${basePath }${pageContext.request.contextPath}/js/vue.js"></script>

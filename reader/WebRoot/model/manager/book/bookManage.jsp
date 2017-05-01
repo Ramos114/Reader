@@ -10,9 +10,9 @@ table {table-layout:fixed;}
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">图书管理</h1>
 </div>
-<div class="wrapper-md">
+<div class="wrapper-md" id="app">
   <div class="panel panel-default">
-    <div class="panel-heading">图书列表</div>
+    <div class="panel-heading">图书列表{{message}}////{{data.result[0].bookNo}}	</div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
  <!--      
@@ -47,44 +47,80 @@ table {table-layout:fixed;}
               </label>
             </th>
 -->  
-            <th style="width:7%">编号</th>
-            <th style="width:8%">名称</th>
-            <th style="width:8%">大类别</th>
+            <th style="width:6%">编号</th>
+            <th style="width:8%">标题</th>
+            <th style="width:5%">作者</th>
+            <th style="width:5%">大类别</th>
             <th style="width:8%">小类别</th>
-    <!--    <th style="width:8%">品牌</th>     -->
-            <th style="width:7%">进货价￥</th>
-            <th style="width:7%">售价￥</th>
-            <th style="width:7%">折后价￥</th>
-            <th style="width:5%">是否打折</th>
-            <th style="width:7%">库存量(件)</th>
-            <th style="width:7%">月销量(件)</th>
-            <th style="width:7%">累计评论</th>
-            <th style="width:7%">状态</th>
-            <th style="width:5%">推荐商品</th>
+            <th style="width:8%">版权</th>
+            <th style="width:5%">章节数</th>
+            <th style="width:8%">最新章节内容</th>
+    <!--    <th style="width:8%">评论数</th>     -->
+            <th style="width:5%">完结？</th>
+            <th style="width:5%">最火？</th>
+            <th style="width:5%">推荐？</th>
+            <th style="width:10%">简介</th>
+            <th style="width:8%">封面</th>
             <th style="width:10%">操作</th>
           </tr>
         </thead>
         
         <tbody id="tableTbody">
-<%--         	
-          <tr>
+         	
+          <tr v-for="item in data.result">
+<!--           
             <td style="width:20px;">
               <label class="i-checks m-b-none">
                 <input type="checkbox"><i></i>
               </label>
             </td>
-            <td title="20160101">20160101</td>
-            <td title="Lenovo/联想 YOGA710 -14ISK">Lenovo/联想 YOGA710 -14ISK</td>
-            <td title="笔记本">笔记本</td>
-            <td title="Lenovo/联想">Lenovo/联想</td>
-            <td>6549</td>
-            <td>5549</td>
-            <td>是</td>
-            <td>100</td>
-            <td>671</td>
-            <td>1489</td>
-            <td>上架</td>
-            <td>是</td>
+--> 
+            <td title="{{item.bookNo}}">{{item.bookNo}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.author.authorName}}</td>
+            <td>{{item.categories.label}}</td>
+            <td>{{item.categories.category.name}}</td>
+            <td>{{item.rights}}</td>
+            <td>{{item.chapter_count}}</td>
+            <td>{{item.lastest}}</td>
+            
+            <td>
+            	<div v-if="item.isFinish=='1'">
+            		<!-- 如果使用，加上checked -->
+         			<label class='i-switch bg-primary m-t-xs m-r'> <input type='checkbox' checked disabled="disabled" onclick=sel()><i></i> </label>
+         		</div>
+         		<div v-else>
+         			<label class='i-switch bg-primary m-t-xs m-r'> <input type='checkbox'  disabled="disabled"><i></i> </label>
+         		</div>
+         	</td>
+         	
+            <td>
+            	<div v-if="item.isHot=='1'">
+            		<!-- 如果使用，加上checked -->
+         			<label class='i-switch bg-primary m-t-xs m-r'> <input type='checkbox' checked disabled="disabled"><i></i> </label>
+         		</div>
+         		<div v-else>
+         			<label class='i-switch bg-primary m-t-xs m-r'> <input type='checkbox'  disabled="disabled"><i></i> </label>
+         		</div>
+         	</td>
+         	
+            <td>
+            	<div v-if="item.isRecommend=='1'">
+            		<!-- 如果使用，加上checked -->
+         			<label class='i-switch bg-primary m-t-xs m-r'> <input type='checkbox' checked disabled="disabled"><i></i> </label>
+         		</div>
+         		<div v-else>
+         			<label class='i-switch bg-primary m-t-xs m-r'> <input type='checkbox'  disabled="disabled"><i></i> </label>
+         		</div>
+         	</td>
+            
+            <td>{{item.summary}}</td>
+            <td>
+            	<a class='thumbnail pull-left thumb-lg'>
+            		<img  src="${basePath }${pageContext.request.contextPath}{{item.cover}}" onclick="showBigImg('{{item.cover}}')" >
+            	</a>
+            </td>
+            
             <td>
             <div style="white-space:normal; overflow:visible;">
               <button class="btn btn-sm btn-icon btn-primary" title="商品详情" onclick="toSkit('${basePath }${pageContext.request.contextPath}/model/manager/pro/productDetails.jsp')"><i class="fa fa-list"></i></button>
@@ -92,7 +128,7 @@ table {table-layout:fixed;}
               <button class="btn btn-sm btn-icon btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
             </div>
             </td>
-          </tr> --%>
+          </tr> 
           
         </tbody>       
       </table>
@@ -132,6 +168,15 @@ table {table-layout:fixed;}
     </footer>
   </div>
 </div>
+
+ 		<!--放大图的imgModal-->
+        <div class="modal fade bs-example-modal-lg text-center" id="imgModal"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+          <div class="modal-dialog modal-lg" style="display: inline-block; width: auto;">
+            <div class="modal-content">
+             <img  id="imgInModalID" src="" >
+            </div>
+          </div>
+        </div>
 
 <script type="text/javascript">
 
@@ -185,14 +230,14 @@ table {table-layout:fixed;}
 					if ($(this).hasClass("active")) {
 						doRequest(window.parseInt($(this).children("a").html()) + 1);
 					}
-				});
+		});
 	}
 	
 	//ajax请求table数据
 	function doRequest(currentPage){
 		$.ajax({
     	type:'post',
-    	url:"${basePath}${pageContext.request.contextPath}/ProductAction!findPageProduct.action",
+    	url:"${basePath}${pageContext.request.contextPath}/BookAction!findPageBook.action",
     	data:{
     		"page" : currentPage,
     		"rows" : $("#page_everySize").val(),
@@ -202,7 +247,7 @@ table {table-layout:fixed;}
     		if (status == "success") {
     			
     			if(data.status == "success"){
-    				setDataTable(data);
+    				setDataTable(data);	
     			}else{
     				alert("查询失败,编码的错误!");
     				addNullMessage();
@@ -228,79 +273,15 @@ table {table-layout:fixed;}
 		var begin = 0;
 		//页码结束
 		var end = 0;
-		//先移除表格中的数据
+ 		
+/* 		//先移除表格中的数据
 		$("#tableTbody>tr").remove();
+		 */
 		//移除页码
 		$(".pagination>li").not(":first").not(":last").remove();
-		
-		
-		//组装数据
-		for(var i=0; i<data.result.length; i++){
-			if(data.result[i].id == null ){
-				data.result[i].id="";
-			}
-			if(data.result[i].proNo == null ){
-				data.result[i].proNo="";
-			}
-			if(data.result[i].proName == null ){
-				data.result[i].proName="";
-			}
-	//		if(data.result[i].brand == null ){
-	//			data.result[i].brand="";
-	//		}
-			if(data.result[i].title == null ){
-				data.result[i].title="";
-			}
-			if(data.result[i].purchasePrice == null ){
-				data.result[i].purchasePrice="";
-			}
-			if(data.result[i].price == null ){
-				data.result[i].price="";
-			}
-			if(data.result[i].discountPrice == null ){
-				data.result[i].discountPrice="";
-			}
-			if(data.result[i].discountFlag == null ){
-				data.result[i].discountFlag="";
-			}
-			if(data.result[i].introduce == null ){
-				data.result[i].introduce="";
-			}
-			if(data.result[i].store == null ){
-				data.result[i].store="";
-			}
-			if(data.result[i].monthSale == null ){
-				data.result[i].monthSale="";
-			}
-			if(data.result[i].commentNum == null ){
-				data.result[i].commentNum="";
-			}
-			if(data.result[i].listingTime == null ){
-				data.result[i].listingTime="";
-			}
-			if(data.result[i].delistingTime == null ){
-				data.result[i].delistingTime="";
-			}
-			if(data.result[i].status == null ){
-				data.result[i].status="";
-			}
-			if(data.result[i].recommendFlag == null ){
-				data.result[i].recommendFlag="";
-			}
-			if(data.result[i].keywords == null ){
-				data.result[i].keywords="";
-			}
-			if(data.result[i].origin == null ){
-				data.result[i].origin="";
-			}
-			if(data.result[i].smallcategory == null ){
-				data.result[i].keywords="";
-			}
-
-			//添加数据进表格
-			addDataToTable(data.result[i]);
-		}
-		
+	 
+		//添加数据进表格
+		addDataToTable(data);
 		
 		//设置好页码信息
 		$("#page_showPageSize").html("显示"+data.page+"-"+data.total+"页");
@@ -329,7 +310,7 @@ table {table-layout:fixed;}
 				begin = data.total - 6;
 				end = data.total;
 			}
-		} //else
+		} 
 		
 		//添加页码
 		for (var i = end; begin <= i; i--) {
@@ -372,38 +353,15 @@ table {table-layout:fixed;}
 	
 	//数据写入table
 	function addDataToTable(data){
-		$("#tableTbody").append("<tr>"
-						//		+"<td><label class=\"i-checks m-b-none\">"
-						//		+"<input type=\"checkbox\" value="+data.id+"><i></i></label>"
-						//		+"</td>"
-								+"<td>"+data.proNo+"</td>"
-								+"<td>"+data.proName+"</td>"
-								+"<td>"+data.smallcategory.bigcategory.bgcName+"</td>"
-								+"<td>"+data.smallcategory.slcName+"</td>"
-						//		+"<td>"+data.brand+"</td>"
-								+"<td>"+data.purchasePrice+"</td>"
-								+"<td>"+data.price+"</td>"
-								+"<td>"+data.discountPrice+"</td>"
-								+"<td>"+data.discountFlag+"</td>"
-								+"<td>"+data.store+"</td>"
-								+"<td>"+data.monthSale+"</td>"
-								+"<td>"+data.commentNum+"</td>"
-								+"<td>"+data.status+"</td>"
-								+"<td>"+data.recommendFlag+"</td>"
-								+"<td>"
-								+"<div style=\"white-space:normal; overflow:visible;\">"
-									+"<button class=\"btn btn-sm btn-icon btn-primary\" title=\"商品详情\" "
-										+"onclick=\"toSkit('${basePath }${pageContext.request.contextPath}/ProductAction!productDetailsUI.action?product.id="+data.id
-										+"')\">"
-										+"<i class=\"fa fa-list\"></i></button>&nbsp;&nbsp;"
-								//	+"<button class=\"btn btn-sm btn-icon btn-info\"><i class=\"glyphicon glyphicon-pencil\"></i></button>"
-              						+"<button onclick= 'deleteProduct(\""+data.id+"\")' class=\"btn btn-sm btn-icon btn-danger\" title=\"删除\"><i class=\"glyphicon glyphicon-trash\"></i></button>"
-              					//		+"onclick=\"toSkit('${basePath }${pageContext.request.contextPath}/ProductAction!deleteProduct.action?product.id="+data.id
-								//		+"')\">"
-              					//		+"<i class=\"glyphicon glyphicon-trash\"></i></button>"
-              					+"</div>"
-								+"</td>"
-								+"</tr>");
+	
+			new Vue({
+    			el:'#app',
+    			data:{
+    				message:'Hahahahhah',
+    				data:data,
+    			}
+    		});
+
 	}
 	
 	//删除商品
@@ -431,6 +389,13 @@ table {table-layout:fixed;}
 		});
 	}
 	
-	 
-
+	//显示封面大图
+	function showBigImg(imgUrl){
+		
+		$('#imgInModalID').attr("src", '${basePath}${pageContext.request.contextPath}'+imgUrl);
+		$('#imgModal').modal('show');
+	}
+	
+	
+	
 </script>
