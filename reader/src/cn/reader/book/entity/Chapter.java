@@ -1,12 +1,10 @@
 package cn.reader.book.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import cn.reader.core.base.BaseEntity;
@@ -35,13 +33,14 @@ public class Chapter extends BaseEntity{
 	 * 章节标题
 	 */
 	@Column
-	private String title;
+	private String chapterTitle;
 	
 	/**
 	 * 章节字数
 	 */
 	@Column
 	private Integer word_count;
+	
 	
 	/*
 	 * 与图书存在多对一的关系
@@ -50,12 +49,42 @@ public class Chapter extends BaseEntity{
 	@JoinColumn
 	private Book book;
 
+
+	public Chapter() {
+		
+	}
+	public Chapter(String chapter_id, String chapterTitle, Integer word_count,
+			Book book) {
+		super();
+		this.chapter_id = chapter_id;
+		this.chapterTitle = chapterTitle;
+		this.word_count = word_count;
+		this.book = book;
+	}
+	public String getChapter_id() {
+		return chapter_id;
+	}
+	public void setChapter_id(String chapter_id) {
+		this.chapter_id = chapter_id;
+	}
+	public String getChapterTitle() {
+		return chapterTitle;
+	}
+	public void setChapterTitle(String chapterTitle) {
+		this.chapterTitle = chapterTitle;
+	}
+	public Integer getWord_count() {
+		return word_count;
+	}
+	public void setWord_count(Integer word_count) {
+		this.word_count = word_count;
+	}
+	public Book getBook() {
+		return book;
+	}
+	public void setBook(Book book) {
+		this.book = book;
+	}
 	
-	/**
-	 * 与章节存在一对一的关系
-	 */
-	@OneToOne(cascade={CascadeType.ALL})
-	@JoinColumn
-	private Data data;
 
 }

@@ -1,4 +1,4 @@
-package cn.reader.other.entity;
+package cn.reader.channel.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

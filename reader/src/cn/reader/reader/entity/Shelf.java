@@ -1,4 +1,4 @@
-package cn.reader.book.entity;
+package cn.reader.reader.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +14,7 @@ import cn.reader.core.base.BaseEntity;
  * 
  */
 @Entity
-@Table(name="boo_shelf")
+@Table(name="rea_shelf")
 public class Shelf extends BaseEntity{
 
 	/**
@@ -28,5 +28,22 @@ public class Shelf extends BaseEntity{
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn
 	private Reader reader;
+	
+
+	public Shelf() {
+		
+	}
+	public Shelf(Reader reader) {
+		super();
+		this.reader = reader;
+	}
+	
+	public Reader getReader() {
+		return reader;
+	}
+	public void setReader(Reader reader) {
+		this.reader = reader;
+	}
+	
 	
 }

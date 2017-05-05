@@ -1,4 +1,4 @@
-package cn.reader.book.entity;
+package cn.reader.channel.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,42 +10,42 @@ import javax.persistence.Table;
 import cn.reader.core.base.BaseEntity;
 
 /**
- * 分类类别(小类)  实体
+ * 频道类别  实体
  * @author LMX
  *
  */
-@Entity
-@Table(name="boo_categories")
-public class Categories extends BaseEntity{
-
+/*@Entity
+@Table(name="boo_channels")*/
+public class Channels extends BaseEntity{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * 类别标签
+	 * 频道名称(男频、女频)
 	 */
 	@Column
-	private String label;
-	
-	/**
-	 * 类别数量
-	 */
-	@Column
-	private Integer fiction_count;
-	
-	/**
-	 * 类别封面 地址
-	 */
-	@Column
-	private String new_image;
+	private String name;
 	
 	/*
-	 * 与分类(大类)存在多对一的关系
+	 * 显示数目
+	 */
+	@Column	
+	private Integer count;
+	
+	/*
+	 * 总数
+	 */
+	@Column	
+	private Integer total;
+	
+	/*
+	 * 与频道存在多对一的关系
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn
-	private Category category;
-	
+	private Channel channel;
+
 }
