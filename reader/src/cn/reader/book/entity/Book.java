@@ -1,5 +1,7 @@
 package cn.reader.book.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -94,6 +96,24 @@ public class Book extends BaseEntity{
 	 */
 	@Column	
 	private String cover;
+	
+	/*
+	 * 出版时间
+	 */
+	@Column	
+	private Date publicationTime;
+	
+	/*
+	 * 上架时间
+	 */
+	@Column	
+	private Date listingTime;
+	
+	/*
+	 * 下架时间
+	 */
+	@Column	
+	private Date delistingTime;
 	
 
 	/**
