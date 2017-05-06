@@ -27,7 +27,7 @@ public class Chapter extends BaseEntity{
 	 * 章节编号(第几章)
 	 */
 	@Column(unique=true)	
-	private String chapter_id;
+	private String chapterNo;
 	
 	/**
 	 * 章节标题
@@ -53,19 +53,19 @@ public class Chapter extends BaseEntity{
 	public Chapter() {
 		
 	}
-	public Chapter(String chapter_id, String chapterTitle, Integer word_count,
+	public Chapter(String chapterNo, String chapterTitle, Integer word_count,
 			Book book) {
 		super();
-		this.chapter_id = chapter_id;
+		this.chapterNo = chapterNo;
 		this.chapterTitle = chapterTitle;
 		this.word_count = word_count;
 		this.book = book;
 	}
-	public String getChapter_id() {
-		return chapter_id;
+	public String getChapterNo() {
+		return chapterNo;
 	}
-	public void setChapter_id(String chapter_id) {
-		this.chapter_id = chapter_id;
+	public void setChapterNo(String chapterNo) {
+		this.chapterNo = chapterNo;
 	}
 	public String getChapterTitle() {
 		return chapterTitle;

@@ -47,19 +47,19 @@ table {table-layout:fixed;}
               </label>
             </th>
 -->  
-            <th style="width:6%">编号</th>
+            <th style="width:5%">编号</th>
             <th style="width:8%">标题</th>
             <th style="width:5%">作者</th>
-            <th style="width:5%">大类别</th>
-            <th style="width:8%">小类别</th>
+            <th style="width:7%">大类别</th>
+            <th style="width:5%">小类别</th>
             <th style="width:8%">版权</th>
-            <th style="width:5%">章节数</th>
             <th style="width:8%">最新章节内容</th>
+            <th style="width:6%">更新时间</th>
+            <th style="width:10%">简介</th>
     <!--    <th style="width:8%">评论数</th>     -->
             <th style="width:5%">完结？</th>
             <th style="width:5%">最火？</th>
             <th style="width:5%">推荐？</th>
-            <th style="width:10%">简介</th>
             <th style="width:8%">封面</th>
             <th style="width:10%">操作</th>
           </tr>
@@ -77,12 +77,13 @@ table {table-layout:fixed;}
 --> 
             <td title="{{item.bookNo}}">{{item.bookNo}}</td>
             <td>{{item.title}}</td>
-            <td>{{item.author.authorName}}</td>
-            <td>{{item.categories.label}}</td>
-            <td>{{item.categories.category.name}}</td>
-            <td>{{item.rights}}</td>
-            <td>{{item.chapter_count}}</td>
-            <td>{{item.lastest}}</td>
+            <td>{{item.author.userName}}</td>
+            <td>{{item.smallCategory.bigCategory.bgcName}}</td>
+            <td>{{item.smallCategory.slcName}}</td>
+            <td title="{{item.rights}}">{{item.rights}}</td>
+            <td title="{{item.lastest}}">{{item.lastest}}</td>
+            <td title="{{item.updateTime}}" style="Format('yyyy-MM-dd')" format('yyyy-MM-dd')>{{item.updateTime}}</td>
+            <td title="{{item.summary}}">{{item.summary}}</td>
             
             <td>
             	<div v-if="item.isFinish=='1'">
@@ -114,7 +115,6 @@ table {table-layout:fixed;}
          		</div>
          	</td>
             
-            <td>{{item.summary}}</td>
             <td>
             	<a class='thumbnail pull-left thumb-lg'>
             		<img  src="${basePath }${pageContext.request.contextPath}{{item.cover}}" onclick="showBigImg('{{item.cover}}')" >
@@ -351,7 +351,7 @@ table {table-layout:fixed;}
 		 toSkit('${basePath }${pageContext.request.contextPath}/ProductAction!productAddUI.action');
 	}
 	
-	//数据写入table
+	//数据写入table--Vue渲染
 	function addDataToTable(data){
 	
 			new Vue({
