@@ -54,7 +54,7 @@ table {table-layout:fixed;}
 						<td title="{{item.bgcRcontent}}">{{item.bgcRcontent}}</td>
 
 						<td>
-							<a class=' pull-left thumbnail'> 
+							<a class='pull-left thumbnail'> 
 								<img src="${basePath }${pageContext.request.contextPath}{{item.bgcImgUrl}}" onclick="showBigImg('{{item.bgcImgUrl}}')">
 							</a>
 						</td>

@@ -46,7 +46,10 @@ public class CategoryDao extends BaseDao {
 	}
 	
 	/**
-	 * 根据id查找大类
+	 * 根据id查找大类别
+	 * @param id
+	 * @return
+	 * @throws Exception
 	 */
 	public BigCategory findbgcbyId(String id) throws Exception {		
 		List<BigCategory> list=find("from BigCategory where id='"+id+"'");
@@ -56,33 +59,41 @@ public class CategoryDao extends BaseDao {
 			return null;
 		}
 	}
-	//判断大类编号或大类名称是否已存在
-		
+
+	/**
+	 * 判断大类别编号或大类名称是否已存在	
+	 * @param bgcId
+	 * @param bgcName
+	 * @return
+	 * @throws Exception
+	 */
 	public String bgclist(String bgcId, String bgcName) throws Exception {
-			// TODO Auto-generated method stub
-		String f=null;
-		String hql1 = "from BigCategory where bgcId='" + bgcId+ "'";
+		String f = null;
+		String hql1 = "from BigCategory where bgcId='" + bgcId + "'";
 		list1 = this.find(hql1);
-		
-		if(list1==null||list1.size()==0){
-			String hql2 = "from BigCategory where bgcName='" + bgcName+ "'";
-			
+
+		if (list1 == null || list1.size() == 0) {
+			String hql2 = "from BigCategory where bgcName='" + bgcName + "'";
+
 			list2 = this.find(hql2);
-			if(list2==null||list2.size()==0){
-				f=null;
-				
+			if (list2 == null || list2.size() == 0) {
+				f = null;
+			} else {
+				f = "bgcName_exist";
 			}
-			else{
-				f="bgcName_exist";
-			}
-			
-		}else{
-			f="bgcId_exist";
+
+		} else {
+			f = "bgcId_exist";
 		}
-		
+
 		return f;
 	}
 	
+	/**
+	 * 更新大类别实体
+	 * @param bigcategory
+	 * @throws Exception
+	 */
 	public void updatebgc(BigCategory bigcategory)throws Exception{
 		this.update(bigcategory);
 	}

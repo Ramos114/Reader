@@ -10,7 +10,7 @@
 		<div class="col-sm-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<p class="text-muted">请填写大类信息</p>
+					<p class="text-muted">请填写大类别信息</p>
 					<form id="form_bgcAdd" action="" method="post">
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 						<div class="form-group">
@@ -74,9 +74,11 @@
 </div>
 
 <script type="text/javascript">
-	$('#file-pic').fileinput('refresh', {//初始化上传文件框
+	//【2】上传图片
+	// 图片-文件初始化上传文件框
+	$('#file-pic').fileinput('refresh', {
 	
-	showUpload : false,
+		showUpload : false,
         showRemove : false,
         uploadAsync: true,
         uploadLabel: "上传",//设置上传按钮的汉字
@@ -100,20 +102,21 @@
 		}
 	});
 
+	//【1】先添加大类别信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
 	function add_bgc() {
 	
-		var bgcid = $("#bgcid").val();
+		var bgcId = $("#bgcId").val();
 		var bgcName = $("#bgcName").val();
-		var bgccontent = $("#bgccontent").val();
+		var bgcContent = $("#bgcContent").val();
 		var bgcRcontent = $("#bgcRcontent").val();
 		var bgcImgUrl =$("#file-pic").val();
-		if (bgcid == null || bgcid.length == 0) {
-			alert("大类编号不能为空！");
+		if (bgcId == null || bgcId.length == 0) {
+			alert("大类别编号不能为空！");
 		} else {
 			if (bgcName == null || bgcName.length == 0) {
-				alert("大类名称不能为空！");
+				alert("大类别名称不能为空！");
 			} else {
-				if (bgccontent == null || bgccontent.length == 0) {
+				if (bgcContent == null || bgcContent.length == 0) {
 					alert("类别说明不能为空！");
 				} else {
 					if (bgcRcontent == null || bgcRcontent.length == 0) {
@@ -124,48 +127,50 @@
 									type : 'post',
 									url : "${basePath}${pageContext.request.contextPath}/CategoryAction!bgcAdd.action",
 									data : {
-											"bigcategory.bgcId" : bgcid,
-											"bigcategory.bgcName" : bgcName,
-											"bigcategory.bgccontent" : bgccontent,
-											"bigcategory.bgcRcontent":bgcRcontent,
-											"bigcategory.bgcImgUrl":bgcImgUrl,
+											"bigCategory.bgcId" : bgcId,
+											"bigCategory.bgcName" : bgcName,
+											"bigCategory.bgcContent" : bgcContent,
+											"bigCategory.bgcRcontent":bgcRcontent,
+											"bigCategory.bgcImgUrl":bgcImgUrl,
 										},
 									dataType:'json', 
 									success : function(data,status) {
 									    if (status == "success") {
 											if (data.status == "bgcId_exist") {
-												alert("添加失败,该大类编号已存在!");
+												alert("添加失败,该大类别编号已存在!");
 											} else if (data.status == "bgcName_exist") {
-												alert("添加失败,该大类名称已存在!");
+												alert("添加失败,该大类别名称已存在!");
 											} else if (data.status == "bgcadd_success") {
 											
-											$('#file-pic').fileinput('refresh' ,{//加入上传参数--》图片上传返回ID
-    							uploadExtraData: {"bigcategory.id": data.id},
-    						});
+											//加入上传参数--》图片上传返回ID
+											$('#file-pic').fileinput('refresh' ,{
+    											uploadExtraData: {"bigCategory.id": data.id},
+    										});
     				
-    						$('#file-pic').fileinput('upload');//上传文件
+    										$('#file-pic').fileinput('upload');//上传文件
 
-    				  		layer.alert('添加成功!', {//图片信息和上传文件，提交成功，弹提示
-    							icon: 1,
-    				    		skin: 'layui-layer-lan',
-    				    		closeBtn: 0,
-    				    		//anim: 4 //动画类型
-    						});
-												toSkit("${basePath }${pageContext.request.contextPath}/model/manager/pro/bigcategoryManage.jsp")
-												layer.msg("恭喜，添加大类成功！", {
+    				  						layer.alert('添加成功!', {//图片信息和上传文件，提交成功，弹提示
+    											icon: 1,
+    				    						skin: 'layui-layer-lan',
+    				    						closeBtn: 0,
+    				    						//anim: 4 //动画类型
+    										});
+    										
+												toSkit("${basePath }${pageContext.request.contextPath}/model/manager/book/bigCategoryManage.jsp");
+												layer.msg("恭喜，添加大类别成功！", {
 													icon : 1
 												});
 
 											} else {
-												layer.msg("抱歉，添加大类失败！", {
+												layer.msg("抱歉，添加大类别失败！", {
 													icon : 2
 												});
 												addNullMessage();
 											}
-									}else {
+										}else {
 											alert("查询失败,ajax请求返回失败!");
 										}
-										},
+									},
 									cache : false,
 								//不缓存
 								});

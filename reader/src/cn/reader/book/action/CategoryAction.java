@@ -97,8 +97,8 @@ public class CategoryAction extends BaseAction {
 	
 
 	/**
-	 * 添加大类
-	 * 
+	 * 【1】添加大类别信息(包括图片)
+	 * 【1】先添加大类别信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
 	 * @return
 	 * @throws Exception
 	 */
@@ -106,38 +106,37 @@ public class CategoryAction extends BaseAction {
 		// 结果集
 		final Map<String, Object> result = new HashMap<String, Object>();
 		result.put("status", "success");
-		
+
 		PrintWriter out = null;
 		try {
 			out = this.response.getWriter();
-			String f=this.categoryService.bgclist(bigCategory.getBgcId(), bigCategory.getBgcName());
-				
-			if(f=="bgcId_exist"){
-				result.put("status","bgcId_exist");
-			}
-			else if(f=="bgcName_exist"){
-				result.put("status","bgcName_exist");
-			}
-			else{
-				
-			this.categoryService.savebgc(bigCategory);
-			result.put("status","bgcadd_success");
-			result.put("id",bigCategory.getId());
+			// 判断大类别编号或大类名称是否已存在
+			String f = this.categoryService.bgclist(bigCategory.getBgcId(),bigCategory.getBgcName());
+
+			if (f == "bgcId_exist") {
+				result.put("status", "bgcId_exist");
+			} else if (f == "bgcName_exist") {
+				result.put("status", "bgcName_exist");
+			} else {
+				this.categoryService.savebgc(bigCategory);
+				result.put("status", "bgcadd_success");
+				result.put("id", bigCategory.getId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			result.put("status","bgcadd_error");
+			result.put("status", "bgcadd_error");
 			log.error(e.getMessage(), e);
 		} finally {
-			
-				out.write(GsonUtils.GSON.toJson(result));
-				out.close();
-			
+			out.write(GsonUtils.GSON.toJson(result));
+			out.close();
 		}
 		return null;
 	}
+	
 	/**
-	 * 图片上传(可多个)
+	 * 【2】图片上传(可多个)
+	 * 大类别封面上传，(大类别封面是在大类别实体里)
+	 * 先添加大类别信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
 	 * @return
 	 * @throws Exception
 	 */
@@ -164,9 +163,9 @@ public class CategoryAction extends BaseAction {
 				
 				bigCategory=this.categoryService.findbgcbyId(bigCategory.getId());
 		
-				bigCategory.setBgcImgUrl(list.get(i).getPicUrl());//更新图片路径
+				bigCategory.setBgcImgUrl(list.get(i).getPicUrl());//设置实体中的图片路径
 				
-				this.categoryService.updatebgc(bigCategory);
+				this.categoryService.updatebgc(bigCategory);//再更新大类别实体
 			}
 			out = this.response.getWriter();
 			response.setContentType("application/json");
@@ -181,6 +180,7 @@ public class CategoryAction extends BaseAction {
 		}
 		return null;
 	}
+	
 	/**
 	 * 按大类id删除大类
 	 * 

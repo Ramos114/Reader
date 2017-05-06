@@ -22,13 +22,36 @@ public interface ICategoryService extends BaseService {
 	 */
 	public void findbgcbybgcName(PageModel<BigCategory> bigCategory, String bgcName) throws Exception;
 	
-	public BigCategory findbgcbyId(String id) throws Exception;// 按大类id查找大类数据
+	/**
+	 * 根据id查找大类别
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public BigCategory findbgcbyId(String id) throws Exception;
 	
-	public String bgclist(String bgcId,String bgcName)throws Exception;//判断大类编号或大类名称是否已存在
+	/**
+	 * 判断大类别编号或大类名称是否已存在
+	 * @param bgcId
+	 * @param bgcName
+	 * @return
+	 * @throws Exception
+	 */
+	public String bgclist(String bgcId,String bgcName)throws Exception;
 	
-	public void updatebgc(BigCategory bigCategory)throws Exception;// 更新实体
+	/**
+	 * 更新大类别实体
+	 * @param bigCategory
+	 * @throws Exception
+	 */
+	public void updatebgc(BigCategory bigCategory)throws Exception;
 	
-	public void savebgc(BigCategory bigCategory) throws Exception;// 保存实体
+	/**
+	 * 保存大类别实体
+	 * @param bigCategory
+	 * @throws Exception
+	 */
+	public void savebgc(BigCategory bigCategory) throws Exception;
 	
 	public void delbgcbyid(String bid);//删除大类
 
