@@ -147,7 +147,7 @@ table {table-layout:fixed;}
 
 							if (data.status == "success") {
 							
-							//Vue渲染--数据写入table
+							//Vue响应式渲染数据--数据写入table
 							vm.$set("dataObj", data);
                 			//动态生成查询table
 							setDataTable(data);
