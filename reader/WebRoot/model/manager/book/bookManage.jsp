@@ -82,7 +82,7 @@ table {table-layout:fixed;}
             <td>{{item.smallCategory.slcName}}</td>
             <td title="{{item.rights}}">{{item.rights}}</td>
             <td title="{{item.lastest}}">{{item.lastest}}</td>
-            <td title="{{item.updateTime}}" style="Format('yyyy-MM-dd')" format('yyyy-MM-dd')>{{item.updateTime}}</td>
+            <td title="{{item.updateTime}}">{{item.updateTime}}</td>
             <td title="{{item.summary}}">{{item.summary}}</td>
             
             <td>
@@ -116,7 +116,7 @@ table {table-layout:fixed;}
          	</td>
             
             <td>
-            	<a class='thumbnail pull-left thumb-lg'>
+            	<a class='thumbnail pull-left '><!-- thumb-lg -->
             		<img  src="${basePath }${pageContext.request.contextPath}{{item.cover}}" onclick="showBigImg('{{item.cover}}')" >
             	</a>
             </td>
@@ -181,8 +181,6 @@ table {table-layout:fixed;}
 <script type="text/javascript">
 
 	doRequest(1);
-
-
 
 	//全选功能
 	$(document).on('click','th input:checkbox',function() {
@@ -354,7 +352,7 @@ table {table-layout:fixed;}
 	//数据写入table--Vue渲染
 	function addDataToTable(data){
 	
-			new Vue({
+			var app = new Vue({
     			el:'#app',
     			data:{
     				message:'Hahahahhah',
@@ -394,7 +392,7 @@ table {table-layout:fixed;}
 		
 		$('#imgInModalID').attr("src", '${basePath}${pageContext.request.contextPath}'+imgUrl);
 		$('#imgModal').modal('show');
-	}
+	};
 	
 	
 	

@@ -1,5 +1,22 @@
 package cn.reader.core.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import net.coobird.thumbnailator.Thumbnails;
+
+import org.apache.commons.io.FileUtils;
+
+import cn.reader.front.vo.PicVO;
+
+
 /**
  * 上传、删除文件的公共类
  * @author HYK
@@ -7,7 +24,7 @@ package cn.reader.core.utils;
  */
 public class UploadImgUtils {
 	
-	/*public static List<PicVO> upload(File[] file , String [] fileName ,String savaPath ,boolean isThumbPic) throws IOException{
+	public static List<PicVO> upload(File[] file , String [] fileName ,String savaPath ,boolean isThumbPic) throws IOException{
 		
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 		String dateNow = formatDate.format(new Date());
@@ -47,12 +64,12 @@ public class UploadImgUtils {
 	        fos.flush();
 	        fos.close();
 	        input.close();
-			   //size(宽度, 高度) 
+			/*   //size(宽度, 高度) 
 			 * 若图片横比200小，高比300小，不变   
 			 * 若图片横比200小，高比300大，高缩小到300，图片比例不变   
 			 * 若图片横比200大，高比300小，横缩小到200，图片比例不变   
 			 * 若图片横比200大，高比300大，图片按比例缩小，横为200或高为300   
-			  
+			 */ 
 			 if(isThumbPic){//是否缩略图
 				 Thumbnails.of(path+"\\"+newFileName)   
 			        .size(80, 80)  //缩略图统统设置为80 
@@ -100,6 +117,6 @@ public class UploadImgUtils {
 		    		  e.printStackTrace();
 		    	}
 		  }
-	}*/
+	}
 	
 }

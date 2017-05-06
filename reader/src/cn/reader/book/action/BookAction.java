@@ -64,7 +64,7 @@ public class BookAction extends BaseAction{
 	}
 	
 	/**
-	 * 查询所有图书 分页
+	 * 分页查询所有图书 
 	 * @return
 	 * @throws Exception
 	 */
