@@ -43,8 +43,11 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 		this.categoryDao.findbgcbybgcName(bigCategory, bgcName);
 	}
 	
+	/**
+	 * 根据id删除大类别
+	 */
 	@Override
-	public void delbgcbyid(String bid) {
+	public void delbgcbyid(String bid) throws Exception{
 		this.categoryDao.delete(BigCategory.class, bid);
 	}
 	
@@ -88,21 +91,23 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 
 
+	/**
+	 * 根据大类id查找该大类别对应的小类别集合
+	 */
 	@Override
 	public List<SmallCategory> findslcbybid(String bid) throws Exception {
 		return this.categoryDao.findslcbybid(bid);
 	}
 	
-	//删除小类组
+	/**
+	 * 删除小类别集合
+	 */
 	@Override
 	public void delscllist(List<SmallCategory> scllist) throws Exception {
-		if(scllist!=null&&scllist.size()>0){
-			for(int i=0;i<scllist.size();i++)
+		if (scllist != null && scllist.size() > 0) {
+			for (int i = 0; i < scllist.size(); i++)
 				this.delslcbyid(scllist.get(i).getId());
-				
 		}
-		
-		
 	}
 	
 	//删除小类

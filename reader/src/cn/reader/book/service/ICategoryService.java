@@ -53,7 +53,11 @@ public interface ICategoryService extends BaseService {
 	 */
 	public void savebgc(BigCategory bigCategory) throws Exception;
 	
-	public void delbgcbyid(String bid);//删除大类
+	/**
+	 * 根据id删除大类别
+	 * @param bid
+	 */
+	public void delbgcbyid(String bid) throws Exception;
 
 	/*******************************************/
 
@@ -64,11 +68,20 @@ public interface ICategoryService extends BaseService {
 	
 	public String slclist(String slcId,String slcName)throws Exception;//判断小类编号或小类名称是否已存在
 	
-	// 按大类id查找小类数据
-	public List<SmallCategory> findslcbybid(String mid) throws Exception;
+	/**
+	 * 根据大类id查找该大类别对应的小类别集合
+	 * @param mid
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SmallCategory> findslcbybid(String bid) throws Exception;
 
-	//删除小类组
 	
+	/**
+	 * 删除小类别集合
+	 * @param scllist
+	 * @throws Exception
+	 */
 	public void delscllist(List<SmallCategory> scllist) throws Exception;
 	
 	//删除小类

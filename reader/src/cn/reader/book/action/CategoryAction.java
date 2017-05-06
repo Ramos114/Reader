@@ -193,10 +193,13 @@ public class CategoryAction extends BaseAction {
 		try {
 			out = this.response.getWriter();
  			String bid = this.request.getParameter("bid");
+ 			//根据大类id查找该大类别对应的小类别集合
  			List<SmallCategory> scllist = this.categoryService.findslcbybid(bid);
+ 			//逐个删除该大类别下对应的小类别
  			if(scllist!=null&&scllist.size()>0){
  				this.categoryService.delscllist(scllist);
  			}
+ 			//根据id删除大类别
  			this.categoryService.delbgcbyid(bid);
  			result = "bgcdel_success";
  			out.write(result);

@@ -61,9 +61,9 @@ table {table-layout:fixed;}
 
 						<td> 
 						<div style="white-space:normal; overflow:visible;">
-							<button class='btn btn-sm btn-icon btn-info' title="修改大类" onclick="toSkit('CategoryAction!edit_ui.action?bigcategory.id='+ data.id)">
+							<button class='btn btn-sm btn-icon btn-info' title="修改大类" onclick="toSkit('CategoryAction!edit_ui.action?bigCategory.id={{item.id}}')">
 								<i class='glyphicon glyphicon-pencil'></i></button>
-							<button class='btn btn-sm btn-icon btn-danger' title="删除"  onclick="delbgc('CategoryAction!bgcDel.action?bid='+data.id)">
+							<button class='btn btn-sm btn-icon btn-danger' title="删除"  onclick="delbgc('CategoryAction!bgcDel.action?bid={{item.id}}')">
 								<i class='glyphicon glyphicon-trash'></i></button>
 						</div>
 						</td>

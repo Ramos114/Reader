@@ -116,12 +116,10 @@ public class CategoryDao extends BaseDao {
 		  
 		String hql;
 		if(!bgcName.equals("全部")&&bgcName!=""&&slcName==""){
-			hql = "from SmallCategory where bigcategory.bgcName='"
-				+ bgcName + "'";
+			hql = "from SmallCategory where bigcategory.bgcName='" + bgcName + "'";
 		}
 		else if(slcName!=""&&bgcName==""){
-			hql = "from SmallCategory where slcName like '%"
-					+ slcName + "%'";
+			hql = "from SmallCategory where slcName like '%" + slcName + "%'";
 		}
 		else{
 			hql="from SmallCategory";
@@ -130,10 +128,15 @@ public class CategoryDao extends BaseDao {
 		this.find(smallCategory, hql, null);
 	}
 
+	/**
+	 * 根据大类id查找该大类别对应的小类别集合
+	 * @param bid
+	 * @return
+	 * @throws Exception
+	 */
 	public List<SmallCategory> findslcbybid(String bid)throws Exception {
-		
-		final String hql = "from SmallCategory where bigcategory.id='"+ bid + "'";
-		return this.find(hql);
+		final String hql = "from SmallCategory where bigCategory.id=?";
+		return this.find(hql, new Object[]{bid});
 	}
 	
 	public void saveslc(SmallCategory smallCategory) throws Exception {
