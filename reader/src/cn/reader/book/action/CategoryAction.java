@@ -36,8 +36,8 @@ import cn.reader.front.vo.PicVO;
 @Scope("prototype")
 @Results(value = {
 		@Result(name="editBigC_UI",location="/model/manager/book/bigCategoryEdit.jsp"),	
-		@Result(name="edit_slc",location="/model/manager/book/edit_smallcategory.jsp"),
 		@Result(name="add_slc",location="/model/manager/book/smallCategoryAdd.jsp"),
+		@Result(name="edit_slc",location="/model/manager/book/smallCategoryEdit.jsp"),
 		@Result(name="input",location="/model/manager/book/bigCategoryManage.jsp"),
 })
 public class CategoryAction extends BaseAction {
@@ -296,9 +296,9 @@ public class CategoryAction extends BaseAction {
 		return null;
 	}
 
+
 	/**
-	 * 按小类id删除小类
-	 * 
+	 * 根据小类id删除小类
 	 * @return
 	 * @throws Exception
 	 */
@@ -427,14 +427,19 @@ public class CategoryAction extends BaseAction {
 
 	
 	/**
-	 * 跳转到修改信息页面
+	 * 跳转到修改小类别信息页面
+	 * 将大类别集合以及根据id查询到该小类别的信息转发到修改页面
 	 * @return
 	 * @throws Exception
 	 */
 	public String edit_slc() throws Exception{
 		try{
-			this.session.setAttribute("bgclist", this.categoryService.findbgclist());
-			this.session.setAttribute("slc_info", this.categoryService.findslcbyId(smallCategory.getId()));
+			//将大类别集合以及根据id查询到该小类别的信息转发到修改页面
+			this.request.setAttribute("bgclist", this.categoryService.findbgclist());
+			this.request.setAttribute("smallCategory", this.categoryService.findslcbyId(smallCategory.getId()));
+			
+//			this.session.setAttribute("bgclist", this.categoryService.findbgclist());
+//			this.session.setAttribute("slc_info", this.categoryService.findslcbyId(smallCategory.getId()));
 			return "edit_slc";
 		}catch(Exception e){
 			log.error(e.getMessage(),e);
@@ -442,14 +447,34 @@ public class CategoryAction extends BaseAction {
 		}
 	}
 	
-	public void slcUpdate(){
+	
+	/**
+	 * 修改小类别信息
+	 * 回传id给图片上传绑定对应的大类别
+	 * @return
+	 */
+	public String slcUpdate(){
+		//System.out.println("\nsmallCategory.bigCategory.id："+this.request.getParameter("smallCategory.bigCategory.id"));
+		// 结果集
+		final Map<String, Object> result = new HashMap<String, Object>();
+		result.put("status", "success");
+		PrintWriter	out = null;
 		try{
+			out = this.response.getWriter();
 			
 			this.categoryService.updateslc(smallCategory);
-			this.response.getWriter().write("update_success");
-		}catch(Exception e){
-			log.error(e.getMessage(),e);
+			
+			result.put("status","update_success");
+			result.put("id",smallCategory.getId());//回传id给图片上传绑定对应的小类别
+		} catch(Exception e){
+			e.printStackTrace();
+			result.put("status","update_error");
+			log.error(e.getMessage(), e);
+		} finally {
+			out.write(GsonUtils.GSON.toJson(result));
+			out.close();
 		}
+		return null;
 	}
 	
 	

@@ -59,7 +59,7 @@
 
 					<div class="form-group">
 						<label class="col-sm-4 control-label">大类别图片</label> 
-						<img src="${basePath }${pageContext.request.contextPath}/${bigCategory.bgcImgUrl}" width="80px;" height="60px;" />
+						<img src="${basePath }${pageContext.request.contextPath}/${bigCategory.bgcImgUrl}" width="15%;" height="8%;" />
 					</div>
 
 					<div class="form-group">

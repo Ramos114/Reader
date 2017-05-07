@@ -42,8 +42,8 @@
 							<label class="col-sm-2 control-label">所属大类别</label>
 							<div class="col-sm-4">
 								<!-- ${bgclist[0].bgcName} -->
-								<s:select name="id" id="id"  list="#request.bgclist"
-									listKey="id" listValue="bgcName"  headerKey="" headerValue="---请选择---">
+								<s:select id="id" name="smallCategory.bigCategory.id" list="#request.bgclist" listValue="bgcName" listKey="id"
+									   headerKey="" headerValue="---请选择---">
 								</s:select>
 							</div>
 						</div>

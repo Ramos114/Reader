@@ -117,7 +117,10 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 		}
 	}
 	
-	//删除小类
+
+	/**
+	 * 根据小类id删除小类
+	 */
 	@Override
 	public void delslcbyid(String sid) {
 		this.categoryDao.delete(SmallCategory.class, sid);

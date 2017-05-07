@@ -338,7 +338,7 @@ table {table-layout:fixed;}
 								+ "onclick=\"showBigImg('"+data.slcImgUrl+"')\">"
 								+ "</a>"
 								+ "</td>"
-								+ "<td> <button class='btn btn-sm btn-icon btn-info' title=\"修改小类\" onclick='toSkit(\"CategoryAction!edit_slc.action?smallcategory.id="+data.id+"\");'>"
+								+ "<td> <button class='btn btn-sm btn-icon btn-info' title=\"修改小类\" onclick='toSkit(\"CategoryAction!edit_slc.action?smallCategory.id="+data.id+"\");'>"
 								+ "<i class='glyphicon glyphicon-pencil'></i></button>&nbsp;"
 								+ "<button class='btn btn-sm btn-icon btn-danger' title=\"删除小类\" onclick='delslc(\"CategoryAction!slcDel.action?sid="+data.id+"\");'>"
 								+ "<i class='glyphicon glyphicon-trash'></i></button></td>"
