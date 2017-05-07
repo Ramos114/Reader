@@ -30,6 +30,10 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 
 	/************** 大类别管理 ***********************/
+	
+	/**
+	 * 查询大类别集合
+	 */
 	@Override
 	public List<BigCategory> findbgclist() throws Exception {
 		return this.categoryDao.findbgclist();
@@ -85,6 +89,9 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 
 	/************** 小类别管理 ***********************/
 	
+	/**
+	 * 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
+	 */
 	@Override
 	public void findslc(PageModel<SmallCategory> smallCategory, String bgcName,String slcName) throws Exception {
 		this.categoryDao.findslc(smallCategory,bgcName,slcName);
@@ -117,12 +124,17 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 	
 
+	/**
+	 * 根据小类id查找小类数据
+	 */
 	@Override
 	public SmallCategory findslcbyId(String id) throws Exception {
 		return this.categoryDao.findslcbyId(id);
 	}
 
-	
+	/**
+	 * 更新小类别实体
+	 */
 	@Override
 	public void updateslc(SmallCategory smallCategory) throws Exception {
 		this.categoryDao.updateslc(smallCategory);

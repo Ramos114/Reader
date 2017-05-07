@@ -37,7 +37,7 @@ import cn.reader.front.vo.PicVO;
 @Results(value = {
 		@Result(name="editBigC_UI",location="/model/manager/book/bigCategoryEdit.jsp"),	
 		@Result(name="edit_slc",location="/model/manager/book/edit_smallcategory.jsp"),
-		@Result(name="add_slc",location="/model/manager/book/add_smallcategory.jsp"),
+		@Result(name="add_slc",location="/model/manager/book/smallCategoryAdd.jsp"),
 		@Result(name="input",location="/model/manager/book/bigCategoryManage.jsp"),
 })
 public class CategoryAction extends BaseAction {
@@ -66,7 +66,7 @@ public class CategoryAction extends BaseAction {
 	/**************** 大类别管理 ***************************/
 
 	/**
-	 * 分页查询所有大类别,按大类别名称查询
+	 * 分页查询所有大类别,按大类别名称模糊查询
 	 * 
 	 * @return
 	 * @throws Exception
@@ -81,6 +81,7 @@ public class CategoryAction extends BaseAction {
 
 			PageModel<BigCategory> bigCategory = new PageModel<BigCategory>();
 			this.setPageModel(bigCategory);
+			// 分页查询所有大类别,按大类别名称模糊查询
 			this.categoryService.findbgcbybgcName(bigCategory, bgcName);
 			out.write(PageUtils.setModelJson(bigCategory));
 		} catch (Exception e) {
@@ -134,7 +135,7 @@ public class CategoryAction extends BaseAction {
 	}
 	
 	/**
-	 * 【2】图片上传(可多个)
+	 * 【2】大类别封面图片上传(可多个)
 	 * 大类别封面上传，(大类别封面是在大类别实体里)
 	 * 先添加大类别信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
 	 * @return
@@ -182,7 +183,7 @@ public class CategoryAction extends BaseAction {
 	}
 	
 	/**
-	 * 按大类id删除大类
+	 * 根据大类id删除大类
 	 * 
 	 * @return
 	 * @throws Exception
@@ -264,15 +265,14 @@ public class CategoryAction extends BaseAction {
 	
 	/***************************************************/
 
-	/**************** 小类类别管理 ***************************/
+	/**************** 小类别管理 ***************************/
 
 	/**
-	 * 查询小类
-	 * 
+	 * 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
 	 * @return
 	 * @throws Exception
 	 */
-	public String slcShow() throws Exception {
+	public String findPageSmallCategory() throws Exception {
 		String result = "success";
 		PrintWriter out = null;
 		try {
@@ -281,6 +281,7 @@ public class CategoryAction extends BaseAction {
 			String bgcName = this.request.getParameter("bgcName");
 			PageModel<SmallCategory> smallCategory = new PageModel<SmallCategory>();
 			this.setPageModel(smallCategory);
+			// 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
 			this.categoryService.findslc(smallCategory, bgcName,slcName);
 
 			out.write(PageUtils.setModelJson(smallCategory));
@@ -323,53 +324,102 @@ public class CategoryAction extends BaseAction {
 	}
 
 	/**
-	 * 跳转到添加信息页面
+	 * 跳转到添加小类别信息页面，查询所有大类别集合并传过去小类别添加页面
 	 * @return
 	 * @throws Exception
 	 */
 	public String slc_ui() throws Exception{
 		try{
-			this.session.setAttribute("bgclist", this.categoryService.findbgclist());
+			List<BigCategory> bgclist = this.categoryService.findbgclist();
+			this.request.setAttribute("bgclist", bgclist);
+			//this.session.setAttribute("bgclist", this.categoryService.findbgclist());
 			return "add_slc";
 		}catch(Exception e){
 			log.error(e.getMessage(),e);
 			return "input";
 		}
 	}
-
+	
 	/**
-	 * 添加小类
-	 * 
+	 * 【1】添加小类别信息(包括图片)
+	 * 【1】先添加小类别信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
 	 * @return
 	 * @throws Exception
 	 */
 	public String slcAdd() throws Exception {
-		String result=null;
+		// 结果集
+		final Map<String, Object> result = new HashMap<String, Object>();
+		result.put("status", "success");
+
 		PrintWriter out = null;
 		try {
 			out = this.response.getWriter();
-			String f=this.categoryService.slclist(smallCategory.getSlcId(),smallCategory.getSlcName());
-			
-			if(f=="slcId_exist"){
-				result = "slcId_exist";
-				
-			}
-			else if(f=="slcName_exist"){
-				result = "slcName_exist";
-			}
-			else{
-				
+			// 判断大类别编号或大类名称是否已存在
+			String f = this.categoryService.slclist(smallCategory.getSlcId(),smallCategory.getSlcName());
+
+			if (f == "slcId_exist") {
+				result.put("status", "slcId_exist");
+			} else if (f == "slcName_exist") {
+				result.put("status", "slcName_exist");
+			} else {
 				this.categoryService.saveslc(smallCategory);
-				result = "slcadd_success";
+				result.put("status", "slcadd_success");
+				result.put("id", smallCategory.getId());
 			}
-			
-			out.write(result);
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = "slcadd_error";
-			out.write(result);
+			result.put("status", "slcadd_error");
 			log.error(e.getMessage(), e);
 		} finally {
+			out.write(GsonUtils.GSON.toJson(result));
+			out.close();
+		}
+		return null;
+	}
+	
+	/**
+	 * 【2】小类别封面图片上传(可多个)
+	 * 小类别封面上传，(小类别封面是在小类别实体里)
+	 * 先添加小类别信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
+	 * @return
+	 * @throws Exception
+	 */
+	public String addSmallPicture() throws Exception{
+		//保存图片的文件夹路径(tomcat的项目目录下的-->shop/uploadfile)
+		String path = ServletActionContext.getServletContext().getRealPath("/");
+		File tempfile = new File(path); // 如果文件夹不存在创建
+		if (!tempfile.exists()) {
+			tempfile.mkdir();
+		}
+		PrintWriter out = null;
+		//结果集
+		final Map<String, Object> result = new HashMap<String, Object>();
+		result.put("status", "success");
+		//MultiPartRequestWrapper wrapper = (MultiPartRequestWrapper) this.request;
+		try{/*
+			File file[] = wrapper.getFiles("file");
+			String fileName[] = wrapper.getFileNames("file");*/
+			List<PicVO> list = new ArrayList<PicVO>();//list里返回图片路径和缩略图路径
+			if(file != null && fileFileName != null){//判断是否有文件
+				list = UploadImgUtils.upload(file, fileFileName, path, false);//上传文件，false：不缩略图
+			}
+			for(int i = 0 ; i < list.size(); i++){	
+				
+				smallCategory=this.categoryService.findslcbyId(smallCategory.getId());
+		
+				smallCategory.setSlcImgUrl(list.get(i).getPicUrl());//设置实体中的图片路径
+				
+				this.categoryService.updateslc(smallCategory);//再更新小类别实体
+			}
+			out = this.response.getWriter();
+			response.setContentType("application/json");
+		}catch(Exception e){
+			e.printStackTrace();
+			result.put("status", "error");
+			out.write(GsonUtils.GSON.toJson(result));
+			log.error(e.getMessage(), e);
+		}finally{
+			out.write(GsonUtils.GSON.toJson(result));
 			out.close();
 		}
 		return null;

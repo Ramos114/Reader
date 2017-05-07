@@ -10,7 +10,7 @@ table {table-layout:fixed;}
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">图书管理</h1>
 </div>
-<div class="wrapper-md" id="app">
+<div class="wrapper-md" id="bookM">
   <div class="panel panel-default">
     <div class="panel-heading">图书列表</div>
     <div class="row wrapper">
@@ -352,8 +352,8 @@ table {table-layout:fixed;}
 	//数据写入table--Vue渲染
 	function addDataToTable(data){
 	
-			var app = new Vue({
-    			el:'#app',
+			var bookM = new Vue({
+    			el:'#bookM',
     			data:{
     				message:'Hahahahhah',
     				data:data,

@@ -1,48 +1,50 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-
-<title>添加大类别信息</title>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<title>添加小类别信息</title>
 <div class="bg-light lter b-b wrapper-md">
-	<h1 class="m-n font-thin h3">大类别管理</h1>
+	<h1 class="m-n font-thin h3">小类别管理</h1>
 </div>
 <div class="panel panel-default">
-	<div class="panel-heading font-bold">添加大类别</div>
+	<div class="panel-heading font-bold">添加小类别</div>
 	<div class="panel-body">
 		<div class="col-sm-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<p class="text-muted">请填写大类别信息</p>
+					<p class="text-muted">请填写小类别信息</p>
 					<form id="form_bgcAdd" action="" method="post">
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">大类别编号</label>
+							<label class="col-sm-2 control-label">小类别编号</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" placeholder="请输入大类别编号" id="bgcId" name="bigCategory.bgcId">
+								<input type="text" class="form-control" placeholder="请输入小类别编号" id="slcId" name="smallCategory.slcId">
 							</div>
 						</div>
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">大类别名称</label>
+							<label class="col-sm-2 control-label">小类别名称</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" placeholder="请输入大类别名称，如'网文男频'" id="bgcName" name="bigCategory.bgcName">
+								<input type="text" class="form-control" placeholder="请输入小类别名称，如'军事'" id="slcName" name="smallCategory.slcName">
 							</div>
 						</div>
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 
 						<div class="form-group">
-							<label class="col-sm-2 control-label">大类别说明</label>
+							<label class="col-sm-2 control-label">小类别说明</label>
 							<div class="col-sm-4">
-								<textarea rows="4" id="bgcContent" name="bigCategory.bgcContent" class="form-control" placeholder="请输入大类别说明"></textarea>
-								<i id="bgcContent_check" class=""></i>
+								<textarea rows="4" id="slcContent" name="smallCategory.slcContent" class="form-control" placeholder="请输入小类别说明"></textarea>
+								<i id="slcContent_check" class=""></i>
 							</div>
 						</div>
 
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 						
 						<div class="form-group">
-							<label class="col-sm-2 control-label">大类别副说明</label>
+							<label class="col-sm-2 control-label">所属大类别</label>
 							<div class="col-sm-4">
-								<textarea rows="4" id="bgcRcontent" name="bigCategory.bgcRcontent" class="form-control" placeholder="请输入大类别副说明"></textarea>
-								<i id="bgcRcontent_check" class=""></i>
+								<!-- ${bgclist[0].bgcName} -->
+								<s:select name="id" id="id"  list="#request.bgclist"
+									listKey="id" listValue="bgcName"  headerKey="" headerValue="---请选择---">
+								</s:select>
 							</div>
 						</div>
 						
@@ -50,7 +52,7 @@
 					
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-            			<label class="col-sm-2 control-label">大类别图片</label>
+            			<label class="col-sm-2 control-label">小类别图片</label>
             			<div class="col-sm-9">           	
                 			<input id="file-pic" name="file" type="file" multiple>            
             			</div>
@@ -58,12 +60,12 @@
 				</div>
 
 				<footer class="panel-footer text-center bg-light lter">
-					<button class="btn btn-success" onclick="add_bgc()">确定</button>
+					<button class="btn btn-success" onclick="add_slc()">确定</button>
 					&nbsp;&nbsp;
 					<button class="btn btn-info" id="reInput">清空</button>
 					&nbsp;&nbsp;
 					<button class="btn btn-default"
-						onclick="toSkit('${basePath }${pageContext.request.contextPath}/model/manager/book/bigCategoryManage.jsp')">
+						onclick="toSkit('${basePath }${pageContext.request.contextPath}/model/manager/book/smallCategoryManage.jsp')">
 						返回</button>
 				</footer>
 			</div>
@@ -85,7 +87,7 @@
         uploadClass: "btn btn-primary",//设置上传按钮样式
         showCaption: false,//是否显示标题
         language: "zh",
-        uploadUrl: "CategoryAction!addPicture.action",//上传大类封面图
+        uploadUrl: "CategoryAction!addSmallPicture.action",//上传小类封面图
         maxFileSize : 0,
         maxFileCount: 1,/*允许最大上传数，可以多个，当前设置单个*/
         enctype: 'multipart/form-data',
@@ -102,49 +104,48 @@
 		}
 	});
 
-	//【1】先添加大类别信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
-	function add_bgc() {
+	//【1】先添加小类别信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
+	function add_slc() {
 	
-		var bgcId = $("#bgcId").val();
-		var bgcName = $("#bgcName").val();
-		var bgcContent = $("#bgcContent").val();
-		var bgcRcontent = $("#bgcRcontent").val();
-		var bgcImgUrl =$("#file-pic").val();
-		if (bgcId == null || bgcId.length == 0) {
-			alert("大类别编号不能为空！");
+		var slcId = $("#slcId").val();
+		var slcName = $("#slcName").val();
+		var slcContent = $("#slcContent").val();
+		var slcImgUrl =$("#file-pic").val();
+		if (slcId == null || slcId.length == 0) {
+			alert("小类别编号不能为空！");
 		} else {
-			if (bgcName == null || bgcName.length == 0) {
-				alert("大类别名称不能为空！");
+			if (slcName == null || slcName.length == 0) {
+				alert("小类别名称不能为空！");
 			} else {
-				if (bgcContent == null || bgcContent.length == 0) {
+				if (slcContent == null || slcContent.length == 0) {
 					alert("类别说明不能为空！");
 				} else {
-					if (bgcRcontent == null || bgcRcontent.length == 0) {
-						alert("类别副说明不能为空！");
+					if(id.options[id.selectedIndex].text=="---请选择---"){
+					alert("请选择大类！");
 					} else {
 					
 						$.ajax({
 									type : 'post',
-									url : "${basePath}${pageContext.request.contextPath}/CategoryAction!bgcAdd.action",
+									url : "${basePath}${pageContext.request.contextPath}/CategoryAction!slcAdd.action",
 									data : {
-											"bigCategory.bgcId" : bgcId,
-											"bigCategory.bgcName" : bgcName,
-											"bigCategory.bgcContent" : bgcContent,
-											"bigCategory.bgcRcontent":bgcRcontent,
-											"bigCategory.bgcImgUrl":bgcImgUrl,
+											"smallCategory.slcId" : slcId,
+											"smallCategory.slcName" : slcName,
+											"smallCategory.slcContent" : slcContent,
+											"smallCategory.bigCategory.id" : $("#id").val(),
+											"smallCategory.slcImgUrl":slcImgUrl,
 										},
 									dataType:'json', 
 									success : function(data,status) {
 									    if (status == "success") {
-											if (data.status == "bgcId_exist") {
-												alert("添加失败,该大类别编号已存在!");
-											} else if (data.status == "bgcName_exist") {
-												alert("添加失败,该大类别名称已存在!");
-											} else if (data.status == "bgcadd_success") {
+											if (data.status == "slcId_exist") {
+												alert("添加失败,该小类别编号已存在!");
+											} else if (data.status == "slcName_exist") {
+												alert("添加失败,该小类别名称已存在!");
+											} else if (data.status == "slcadd_success") {
 											
-											//加入上传参数--》加入大类别ID绑定到图片上
+											//加入上传参数--》加入小类别ID绑定到图片上
 											$('#file-pic').fileinput('refresh' ,{
-    											uploadExtraData: {"bigCategory.id": data.id},
+    											uploadExtraData: {"smallCategory.id": data.id},
     										});
     				
     										$('#file-pic').fileinput('upload');//上传文件
@@ -156,13 +157,13 @@
     				    						//anim: 4 //动画类型
     										});
     										
-												toSkit("${basePath }${pageContext.request.contextPath}/model/manager/book/bigCategoryManage.jsp");
-												layer.msg("恭喜，添加大类别成功！", {
+												toSkit("${basePath }${pageContext.request.contextPath}/model/manager/book/smallCategoryManage.jsp");
+												layer.msg("恭喜，添加小类别成功！", {
 													icon : 1
 												});
 
 											} else {
-												layer.msg("抱歉，添加大类别失败！", {
+												layer.msg("抱歉，添加小类别失败！", {
 													icon : 2
 												});
 												addNullMessage();
@@ -183,9 +184,8 @@
 
 	//清空，重新输入
 	$("#reInput").click(function() {
-		document.getElementById("bgcId").value = "";
-		document.getElementById("bgcName").value = "";
-		document.getElementById("bgcContent").value = "";
-		document.getElementById("bgcRcontent").value = "";
+		document.getElementById("slcId").value = "";
+		document.getElementById("slcName").value = "";
+		document.getElementById("slcContent").value = "";
 	});
 </script>

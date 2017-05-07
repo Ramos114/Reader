@@ -9,7 +9,7 @@ table {table-layout:fixed;}
 <div class="bg-light lter b-b wrapper-md">
 	<h1 class="m-n font-thin h3">大类别管理</h1>
 </div>
-<div class="wrapper-md" id="app">
+<div class="wrapper-md" id="bigCM">
 	<div class="panel panel-default">
 		<div class="panel-heading">类别列表</div>
 		<div class="row wrapper">
@@ -121,9 +121,9 @@ table {table-layout:fixed;}
         
 <script type="text/javascript">
 	//Vue框架--用于客户端渲染数据
-	var vm;
-	vm = new Vue({
-            el: '#app',
+	var bigCM;
+	bigCM = new Vue({
+            el: '#bigCM',
             data: {
                 dataObj: {},
             }
@@ -148,7 +148,7 @@ table {table-layout:fixed;}
 							if (data.status == "success") {
 							
 							//Vue响应式渲染数据--数据写入table
-							vm.$set("dataObj", data);
+							bigCM.$set("dataObj", data);
                 			//动态生成查询table
 							setDataTable(data);
 							} else {

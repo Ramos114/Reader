@@ -11,7 +11,11 @@ import cn.reader.core.page.PageModel;
 public interface ICategoryService extends BaseService {
 
 	/************** 大类别管理 ***********************/
-	
+	/**
+	 * 查询大类别集合信息
+	 * @return
+	 * @throws Exception
+	 */
 	public List<BigCategory> findbgclist()throws Exception;
 	
 	/**
@@ -63,8 +67,14 @@ public interface ICategoryService extends BaseService {
 
 	/************** 小类别管理 ***********************/
 
-	public void findslc(PageModel<SmallCategory> smallCategory,String bgcName,
-			String slcName) throws Exception;// 查找小类数据
+	/**
+	 * 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
+	 * @param smallCategory
+	 * @param bgcName
+	 * @param slcName
+	 * @throws Exception
+	 */
+	public void findslc(PageModel<SmallCategory> smallCategory,String bgcName,String slcName) throws Exception;
 	
 	public String slclist(String slcId,String slcName)throws Exception;//判断小类编号或小类名称是否已存在
 	
@@ -87,9 +97,20 @@ public interface ICategoryService extends BaseService {
 	//删除小类
 	public void delslcbyid(String bid)throws Exception;
 	
-	public SmallCategory findslcbyId(String id) throws Exception;// 按小类id查找小类数据
+	/**
+	 * 根据小类id查找小类数据
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public SmallCategory findslcbyId(String id) throws Exception;
 	
-	public void updateslc(SmallCategory smallCategory)throws Exception;// 更新实体
+	/**
+	 * 更新小类别实体
+	 * @param smallCategory
+	 * @throws Exception
+	 */
+	public void updateslc(SmallCategory smallCategory)throws Exception;
 	
 
 	public void saveslc(SmallCategory smallCategory) throws Exception;// 保存实体

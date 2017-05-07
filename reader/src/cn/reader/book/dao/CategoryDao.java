@@ -22,19 +22,23 @@ public class CategoryDao extends BaseDao {
 	private List<BigCategory> list1;
 	private List<BigCategory> list2;
 
+	/**
+	 * 查询大类别集合
+	 * @return
+	 * @throws Exception
+	 */
 	public List<BigCategory> findbgclist() throws Exception {
 		final String hql = "from BigCategory";
-
-		return this.find( hql);
+		return this.find(hql);
 	}
 	
 	/**
 	 * 分页查询所有大类别,按大类别名称查询
-	 * @param bigcategory
+	 * @param bigCategory
 	 * @param bgcName
 	 * @throws Exception
 	 */
-	public void findbgcbybgcName(PageModel<BigCategory> bigcategory, String bgcName) throws Exception {
+	public void findbgcbybgcName(PageModel<BigCategory> bigCategory, String bgcName) throws Exception {
 		final String hql;
 		if (bgcName == null || bgcName == "") {
 			hql = "from BigCategory ";
@@ -42,7 +46,7 @@ public class CategoryDao extends BaseDao {
 			hql = "from BigCategory where bgcName like '%" + bgcName + "%'";
 		}
 
-		this.find(bigcategory, hql, null);
+		this.find(bigCategory, hql, null);
 	}
 	
 	/**
@@ -92,7 +96,7 @@ public class CategoryDao extends BaseDao {
 	
 	/**
 	 * 更新大类别实体
-	 * @param bigcategory
+	 * @param bigCategory
 	 * @throws Exception
 	 */
 	public void updatebgc(BigCategory bigCategory)throws Exception{
@@ -104,27 +108,21 @@ public class CategoryDao extends BaseDao {
 
 	/************** 小类别管理 ***********************/
 
-	
 	/**
-	 * 查询小类
-	 * 
-	 * @return
+	 * 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
+	 * @param smallCategory
+	 * @param bgcName
+	 * @param slcName
 	 * @throws Exception
 	 */
-	public void findslc(PageModel<SmallCategory> smallCategory,
-			String bgcName,String slcName) throws Exception {
-		// TODO Auto-generated method stub
-		  
+	public void findslc(PageModel<SmallCategory> smallCategory,String bgcName,String slcName) throws Exception {
 		String hql;
-		if(!bgcName.equals("全部")&&bgcName!=""&&slcName==""){
-			hql = "from SmallCategory where bigcategory.bgcName='" + bgcName + "'";
-		}
-		else if(slcName!=""&&bgcName==""){
+		if (!bgcName.equals("全部") && bgcName != "" && slcName == "") {
+			hql = "from SmallCategory where bigCategory.bgcName='" + bgcName + "'";
+		} else if (slcName != "" && bgcName == "") {
 			hql = "from SmallCategory where slcName like '%" + slcName + "%'";
-		}
-		else{
-			hql="from SmallCategory";
-			
+		} else {
+			hql = "from SmallCategory";
 		}
 		this.find(smallCategory, hql, null);
 	}
@@ -144,11 +142,16 @@ public class CategoryDao extends BaseDao {
 		this.save(smallCategory);
 	}
 	
+	
 	/**
-	 * 根据id查找大类
+	 * 根据小类id查找小类数据
+	 * @param id
+	 * @return
+	 * @throws Exception
 	 */
-	public SmallCategory  findslcbyId(String id) throws Exception {		
-		List<SmallCategory> list=find("from SmallCategory where id='"+id+"'");
+	public SmallCategory  findslcbyId(String id) throws Exception {	
+		final String hql = "from SmallCategory where id=?";
+		List<SmallCategory> list=find(hql, new Object[]{id});
 		if(list.size()>0){
 			return list.get(0);
 		}else{
@@ -183,6 +186,11 @@ public class CategoryDao extends BaseDao {
 			return f;
 		}
 
+	/**
+	 * 更新小类别实体
+	 * @param smallCategory
+	 * @throws Exception
+	 */
 	public void updateslc(SmallCategory smallCategory)throws Exception{
 		this.update(smallCategory);
 	}
@@ -204,7 +212,7 @@ public class CategoryDao extends BaseDao {
 	 * @return
 	 */
 	public List<SmallCategory> getSmallcategoryByBigcategoryId(String id) {
-		final String hql="from SmallCategory where bigcategory.id=?";
+		final String hql="from SmallCategory where bigCategory.id=?";
 		return this.find(hql,new Object[]{id});
 	}
 
