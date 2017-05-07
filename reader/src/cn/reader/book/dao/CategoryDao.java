@@ -52,7 +52,8 @@ public class CategoryDao extends BaseDao {
 	 * @throws Exception
 	 */
 	public BigCategory findbgcbyId(String id) throws Exception {		
-		List<BigCategory> list=find("from BigCategory where id='"+id+"'");
+		final String hql = "from BigCategory where id=?";
+		List<BigCategory> list = this.find(hql, new Object[]{id});
 		if(list.size()>0){
 			return list.get(0);
 		}else{
@@ -94,8 +95,8 @@ public class CategoryDao extends BaseDao {
 	 * @param bigcategory
 	 * @throws Exception
 	 */
-	public void updatebgc(BigCategory bigcategory)throws Exception{
-		this.update(bigcategory);
+	public void updatebgc(BigCategory bigCategory)throws Exception{
+		this.update(bigCategory);
 	}
 	
 	/*******************************************/

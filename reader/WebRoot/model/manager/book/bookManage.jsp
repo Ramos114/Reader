@@ -12,7 +12,7 @@ table {table-layout:fixed;}
 </div>
 <div class="wrapper-md" id="app">
   <div class="panel panel-default">
-    <div class="panel-heading">图书列表{{message}}////{{data.result[0].bookNo}}	</div>
+    <div class="panel-heading">图书列表</div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
  <!--      

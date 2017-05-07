@@ -11,7 +11,7 @@ table {table-layout:fixed;}
 </div>
 <div class="wrapper-md" id="app">
 	<div class="panel panel-default">
-		<div class="panel-heading">类别列表   !!!!=1={{dataObj.result[0].bgcName}}=2={{dataObj.result[1].bgcName}}!!!</div>
+		<div class="panel-heading">类别列表</div>
 		<div class="row wrapper">
 			<div class="col-sm-5 m-b-xs">
 				<button class="btn btn-sm btn-primary btn-addon" onclick="addbgc()">
@@ -22,7 +22,7 @@ table {table-layout:fixed;}
 			<div class="col-sm-4">
 				<div class="input-group">
 					<input type="text" id="bgcName" class="input-sm form-control"
-						placeholder="请输入类别名称"> 
+						placeholder="请输入大类别名称"> 
 					<span class="input-group-btn">
 							<button class="btn btn-sm btn-icon btn-success" id="findbybgcName" title="查询">
 								<i class="glyphicon glyphicon-search"></i>
@@ -61,9 +61,9 @@ table {table-layout:fixed;}
 
 						<td> 
 						<div style="white-space:normal; overflow:visible;">
-							<button class='btn btn-sm btn-icon btn-info' title="修改大类" onclick="toSkit('CategoryAction!edit_ui.action?bigCategory.id={{item.id}}')">
+							<button class='btn btn-sm btn-icon btn-info' title="修改大类别信息" onclick="toSkit('CategoryAction!editBigC_UI.action?bigCategory.id={{item.id}}')">
 								<i class='glyphicon glyphicon-pencil'></i></button>
-							<button class='btn btn-sm btn-icon btn-danger' title="删除"  onclick="delbgc('CategoryAction!bgcDel.action?bid={{item.id}}')">
+							<button class='btn btn-sm btn-icon btn-danger' title="删除该大类别"  onclick="delbgc('CategoryAction!bgcDel.action?bid={{item.id}}')">
 								<i class='glyphicon glyphicon-trash'></i></button>
 						</div>
 						</td>
@@ -253,9 +253,6 @@ table {table-layout:fixed;}
 
 	//显示封面大图
 	function showBigImg(imgUrl) {
-		//alert(imgUrl);
-		//var imgUrl = $(this)[0].src;
-		//alert(imgUrl);
 		$('#imgInModalID').attr("src","${basePath}${pageContext.request.contextPath}" + imgUrl);
 		$('#imgModal').modal('show');
 	}
@@ -308,7 +305,6 @@ table {table-layout:fixed;}
 
 	//删除小类
 	function delbgc(url) {
-
 		var msg = "该大类可能包含小类，将会一并删除\n确定继续此操作？";
 		if (confirm(msg) == true) {
 			$.ajax({
@@ -320,7 +316,6 @@ table {table-layout:fixed;}
 							doRequest(1);
 						} else {
 							findbybgcName(1, $("#bgcName").val());
-
 						}
 
 						layer.msg("恭喜，大类删除成功！", {

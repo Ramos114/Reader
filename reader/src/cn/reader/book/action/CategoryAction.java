@@ -35,7 +35,7 @@ import cn.reader.front.vo.PicVO;
 @Action(value = "CategoryAction")
 @Scope("prototype")
 @Results(value = {
-		@Result(name="edit_ui",location="/model/manager/book/edit_bigcategory.jsp"),	
+		@Result(name="editBigC_UI",location="/model/manager/book/bigCategoryEdit.jsp"),	
 		@Result(name="edit_slc",location="/model/manager/book/edit_smallcategory.jsp"),
 		@Result(name="add_slc",location="/model/manager/book/add_smallcategory.jsp"),
 		@Result(name="input",location="/model/manager/book/bigCategoryManage.jsp"),
@@ -215,42 +215,49 @@ public class CategoryAction extends BaseAction {
 	}
 
 	/**
-	 * 跳转到修改信息页面
+	 * 跳转到修改大类别信息页面，并根据id查询大类别信息并传到修改页面
+	 * 注意:跳转不能混用return是Struts2的;out.write是ajax的
+	 * struts2的直接request;ajax就结果集
 	 * @return
 	 * @throws Exception
 	 */
-	public String edit_ui() throws Exception{
-		try{
-			this.session.setAttribute("bgc_info", this.categoryService.findbgcbyId(bigCategory.getId()));
-			return "edit_ui";
-		}catch(Exception e){
-			log.error(e.getMessage(),e);
-			return "input";
-		}
+	public String editBigC_UI() throws Exception {
+		
+		try {
+			bigCategory = this.categoryService.findbgcbyId(bigCategory.getId());
+			this.request.setAttribute("bigCategory", bigCategory);
+			
+			return "editBigC_UI";
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.getMessage(), e);
+		} 
+		return "input";
 	}
 	
+	/**
+	 * 修改大类别信息
+	 * @return
+	 */
 	public String bgcUpdate(){
 		// 结果集
-				final Map<String, Object> result = new HashMap<String, Object>();
-				result.put("status", "success");
-				PrintWriter	out = null;
+		final Map<String, Object> result = new HashMap<String, Object>();
+		result.put("status", "success");
+		PrintWriter	out = null;
 		try{
 			out = this.response.getWriter();
 			
 			this.categoryService.updatebgc(bigCategory);
 			
 			result.put("status","update_success");
-			result.put("id",bigCategory.getId());
-		}catch(Exception e){
+			result.put("id",bigCategory.getId());//回传id给图片上传绑定对应的大类别
+		} catch(Exception e){
 			e.printStackTrace();
 			result.put("status","update_error");
 			log.error(e.getMessage(), e);
-
-		}
-		 finally {
-				out.write(GsonUtils.GSON.toJson(result));
-				out.close();
-			
+		} finally {
+			out.write(GsonUtils.GSON.toJson(result));
+			out.close();
 		}
 		return null;
 	}
