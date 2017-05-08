@@ -18,6 +18,11 @@ import cn.reader.core.base.BaseEntity;
 public class RoleMenu extends BaseEntity{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 角色
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)

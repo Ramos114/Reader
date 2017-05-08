@@ -5,9 +5,9 @@ table th{white-space:nowrap;overflow:hidden; text-overflow:ellipsis;}
 table {table-layout:fixed;}
 </style>
 
-<title>大类别管理</title>
+<title>一级分类管理</title>
 <div class="bg-light lter b-b wrapper-md">
-	<h1 class="m-n font-thin h3">大类别管理</h1>
+	<h1 class="m-n font-thin h3">一级分类管理</h1>
 </div>
 <div class="wrapper-md" id="bigCM">
 	<div class="panel panel-default">
@@ -22,7 +22,7 @@ table {table-layout:fixed;}
 			<div class="col-sm-4">
 				<div class="input-group">
 					<input type="text" id="bgcName" class="input-sm form-control"
-						placeholder="请输入大类别名称"> 
+						placeholder="请输入一级分类名称"> 
 					<span class="input-group-btn">
 							<button class="btn btn-sm btn-icon btn-success" id="findbybgcName" title="查询">
 								<i class="glyphicon glyphicon-search"></i>
@@ -35,8 +35,8 @@ table {table-layout:fixed;}
 			<table class="table table-striped b-t b-light">
 				<thead>
 					<tr>
-						<th style="width:15%">大类别编号</th>
-						<th style="width:20%">大类别名称</th>
+						<th style="width:15%">一级分类编号</th>
+						<th style="width:20%">一级分类名称</th>
 						<th style="width:20%">类别说明</th>
 						<th style="width:20%">类别副说明</th>
 						<th style="width:15%">类别图片</th>
@@ -61,9 +61,9 @@ table {table-layout:fixed;}
 
 						<td> 
 						<div style="white-space:normal; overflow:visible;">
-							<button class='btn btn-sm btn-icon btn-info' title="修改大类别信息" onclick="toSkit('CategoryAction!editBigC_UI.action?bigCategory.id={{item.id}}')">
+							<button class='btn btn-sm btn-icon btn-info' title="修改一级分类信息" onclick="toSkit('CategoryAction!editBigC_UI.action?bigCategory.id={{item.id}}')">
 								<i class='glyphicon glyphicon-pencil'></i></button>
-							<button class='btn btn-sm btn-icon btn-danger' title="删除该大类别"  onclick="delbgc('CategoryAction!bgcDel.action?bid={{item.id}}')">
+							<button class='btn btn-sm btn-icon btn-danger' title="删除该一级分类"  onclick="delbgc('CategoryAction!bgcDel.action?bid={{item.id}}')">
 								<i class='glyphicon glyphicon-trash'></i></button>
 						</div>
 						</td>
@@ -293,7 +293,7 @@ table {table-layout:fixed;}
 		});
 	}
 
-	//大类别名称模糊查询
+	//一级分类名称模糊查询
 	$("#findbybgcName").click(function() { //点击按钮进行模糊查询
 		doRequest(1);
 	});

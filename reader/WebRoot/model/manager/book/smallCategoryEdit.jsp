@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<title>修改小类别信息</title>
+<title>修改二级分类信息</title>
 <div class="bg-light lter b-b wrapper-md">
-	<h1 class="m-n font-thin h3">小类别管理</h1>
+	<h1 class="m-n font-thin h3">二级分类管理</h1>
 </div>
 <div class="panel panel-default">
-	<div class="panel-heading font-bold">修改小类别</div>
+	<div class="panel-heading font-bold">修改二级分类</div>
 	<div class="panel-body">
 		<div class="col-sm-12">
 			<div class="panel panel-default">
@@ -22,37 +22,37 @@
   					<!-- (可选)保存原图片地址，可不修改图片，与上传图片无关 -->
   					<input type="hidden" id="slcImgUrl" name="smallCategory.slcImgUrl" value="${smallCategory.slcImgUrl }">
 				
-					<p class="text-muted">小类别信息</p>
+					<p class="text-muted">二级分类信息</p>
 					
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">小类别编号</label>
+						<label class="col-sm-2 control-label">二级分类编号</label>
 						<div class="col-sm-4">
 							<%-- <input type="hidden" id="id" value="${smallCategory.id }"> --%><!-- 隐藏域id -->
-							<input type="text" class="form-control" placeholder="请输入小类别编号" id="slcId" name="smallCategory.slcId" value="${smallCategory.slcId }">
+							<input type="text" class="form-control" placeholder="请输入二级分类编号" id="slcId" name="smallCategory.slcId" value="${smallCategory.slcId }">
 						</div>
 					</div>
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">小类别名称</label>
+						<label class="col-sm-2 control-label">二级分类名称</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control" placeholder="请输入小类别名称，如'军事'" id="slcName" name="smallCategory.slcName" value="${smallCategory.slcName }">
+							<input type="text" class="form-control" placeholder="请输入二级分类名称，如'军事'" id="slcName" name="smallCategory.slcName" value="${smallCategory.slcName }">
 						</div>
 					</div>
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">小类别说明</label>
+						<label class="col-sm-2 control-label">二级分类说明</label>
 						<div class="col-sm-4">
-							<textarea rows="4" id="slcContent" name="smallCategory.slcContent" class="form-control" placeholder="请输入小类别说明">${smallCategory.slcContent }</textarea>
+							<textarea rows="4" id="slcContent" name="smallCategory.slcContent" class="form-control" placeholder="请输入二级分类说明">${smallCategory.slcContent }</textarea>
 							<i id="slcContent_check" class=""></i>
 						</div>
 					</div>
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">所属大类别</label>
+						<label class="col-sm-2 control-label">所属一级分类</label>
 						<div class="col-sm-4">
 						<!-- 【下拉框】
-							list用于绑定后端用request传来的bgclist大类别集合,listValue用于显示bgcName大类别名称,
+							list用于绑定后端用request传来的bgclist一级分类集合,listValue用于显示bgcName一级分类名称,
 							id是为了用$("#id").val()获取值, name用于data: $("#form_Category").serialize()表单序列化
 							value与listKey="id"结合，是用于当前显示的是哪个id
 						-->
@@ -65,7 +65,7 @@
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 
 					<div class="form-group">
-						<label class="col-sm-4 control-label">小类别图片</label> 
+						<label class="col-sm-4 control-label">二级分类图片</label> 
 						<img src="${basePath }${pageContext.request.contextPath}/${smallCategory.slcImgUrl}" width="15%;" height="8%;" />
 					</div>
 
@@ -102,7 +102,7 @@
         uploadClass: "btn btn-primary",//设置上传按钮样式
         showCaption: false,//是否显示标题
         language: "zh",
-        uploadUrl: "CategoryAction!addSmallPicture.action",//小类别封面图片上传
+        uploadUrl: "CategoryAction!addSmallPicture.action",//二级分类封面图片上传
         maxFileSize : 0,
         maxFileCount: 1,/*允许最大上传数，可以多个，当前设置单个*/
         enctype: 'multipart/form-data',
@@ -120,7 +120,7 @@
 	});
 
 
-	//修改小类别信息
+	//修改二级分类信息
 	function update_slc() {
 		
 		if ($("#slcId").val() == null || $("#slcId").val().length == 0) {

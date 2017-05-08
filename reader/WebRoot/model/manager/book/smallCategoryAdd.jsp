@@ -1,37 +1,37 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<title>添加小类别信息</title>
+<title>添加二级分类信息</title>
 <div class="bg-light lter b-b wrapper-md">
-	<h1 class="m-n font-thin h3">小类别管理</h1>
+	<h1 class="m-n font-thin h3">二级分类管理</h1>
 </div>
 <div class="panel panel-default">
-	<div class="panel-heading font-bold">添加小类别</div>
+	<div class="panel-heading font-bold">添加二级分类</div>
 	<div class="panel-body">
 		<div class="col-sm-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<p class="text-muted">请填写小类别信息</p>
+					<p class="text-muted">请填写二级分类信息</p>
 					<form id="form_bgcAdd" action="" method="post">
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">小类别编号</label>
+							<label class="col-sm-2 control-label">二级分类编号</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" placeholder="请输入小类别编号" id="slcId" name="smallCategory.slcId">
+								<input type="text" class="form-control" placeholder="请输入二级分类编号" id="slcId" name="smallCategory.slcId">
 							</div>
 						</div>
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">小类别名称</label>
+							<label class="col-sm-2 control-label">二级分类名称</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" placeholder="请输入小类别名称，如'军事'" id="slcName" name="smallCategory.slcName">
+								<input type="text" class="form-control" placeholder="请输入二级分类名称，如'军事'" id="slcName" name="smallCategory.slcName">
 							</div>
 						</div>
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 
 						<div class="form-group">
-							<label class="col-sm-2 control-label">小类别说明</label>
+							<label class="col-sm-2 control-label">二级分类说明</label>
 							<div class="col-sm-4">
-								<textarea rows="4" id="slcContent" name="smallCategory.slcContent" class="form-control" placeholder="请输入小类别说明"></textarea>
+								<textarea rows="4" id="slcContent" name="smallCategory.slcContent" class="form-control" placeholder="请输入二级分类说明"></textarea>
 								<i id="slcContent_check" class=""></i>
 							</div>
 						</div>
@@ -39,7 +39,7 @@
 						<div class="line line-dashed b-b line-lg pull-in"></div>
 						
 						<div class="form-group">
-							<label class="col-sm-2 control-label">所属大类别</label>
+							<label class="col-sm-2 control-label">所属一级分类</label>
 							<div class="col-sm-4">
 								<!-- ${bgclist[0].bgcName} -->
 								<s:select id="id" name="smallCategory.bigCategory.id" list="#request.bgclist" listValue="bgcName" listKey="id"
@@ -52,7 +52,7 @@
 					
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-            			<label class="col-sm-2 control-label">小类别图片</label>
+            			<label class="col-sm-2 control-label">二级分类图片</label>
             			<div class="col-sm-9">           	
                 			<input id="file-pic" name="file" type="file" multiple>            
             			</div>
@@ -104,7 +104,7 @@
 		}
 	});
 
-	//【1】先添加小类别信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
+	//【1】先添加二级分类信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
 	function add_slc() {
 	
 		var slcId = $("#slcId").val();
@@ -112,10 +112,10 @@
 		var slcContent = $("#slcContent").val();
 		var slcImgUrl =$("#file-pic").val();
 		if (slcId == null || slcId.length == 0) {
-			alert("小类别编号不能为空！");
+			alert("二级分类编号不能为空！");
 		} else {
 			if (slcName == null || slcName.length == 0) {
-				alert("小类别名称不能为空！");
+				alert("二级分类名称不能为空！");
 			} else {
 				if (slcContent == null || slcContent.length == 0) {
 					alert("类别说明不能为空！");
@@ -138,12 +138,12 @@
 									success : function(data,status) {
 									    if (status == "success") {
 											if (data.status == "slcId_exist") {
-												alert("添加失败,该小类别编号已存在!");
+												alert("添加失败,该二级分类编号已存在!");
 											} else if (data.status == "slcName_exist") {
-												alert("添加失败,该小类别名称已存在!");
+												alert("添加失败,该二级分类名称已存在!");
 											} else if (data.status == "slcadd_success") {
 											
-											//加入上传参数--》加入小类别ID绑定到图片上
+											//加入上传参数--》加入二级分类ID绑定到图片上
 											$('#file-pic').fileinput('refresh' ,{
     											uploadExtraData: {"smallCategory.id": data.id},
     										});
@@ -158,12 +158,12 @@
     										});
     										
 												toSkit("${basePath }${pageContext.request.contextPath}/model/manager/book/smallCategoryManage.jsp");
-												layer.msg("恭喜，添加小类别成功！", {
+												layer.msg("恭喜，添加二级分类成功！", {
 													icon : 1
 												});
 
 											} else {
-												layer.msg("抱歉，添加小类别失败！", {
+												layer.msg("抱歉，添加二级分类失败！", {
 													icon : 2
 												});
 												addNullMessage();

@@ -28,7 +28,7 @@ import cn.reader.front.vo.PicVO;
 
 
 /**
- * 分类(大类别和小类别)Action
+ * 分类(一级分类和二级分类)Action
  * @author LMX
  *
  */
@@ -53,7 +53,7 @@ public class CategoryAction extends BaseAction {
 	@Resource
 	private ICategoryService categoryService;
 
-	// 大类别和小类别实体
+	// 一级分类和二级分类实体
 	private BigCategory bigCategory;
 	
 	private SmallCategory smallCategory;
@@ -63,10 +63,10 @@ public class CategoryAction extends BaseAction {
     private String fileContentType; //文件类型
 
 	
-	/**************** 大类别管理 ***************************/
+	/**************** 一级分类管理 ***************************/
 
 	/**
-	 * 分页查询所有大类别,按大类别名称模糊查询
+	 * 分页查询所有一级分类,按一级分类名称模糊查询
 	 * 
 	 * @return
 	 * @throws Exception
@@ -81,7 +81,7 @@ public class CategoryAction extends BaseAction {
 
 			PageModel<BigCategory> bigCategory = new PageModel<BigCategory>();
 			this.setPageModel(bigCategory);
-			// 分页查询所有大类别,按大类别名称模糊查询
+			// 分页查询所有一级分类,按一级分类名称模糊查询
 			this.categoryService.findbgcbybgcName(bigCategory, bgcName);
 			out.write(PageUtils.setModelJson(bigCategory));
 		} catch (Exception e) {
@@ -98,8 +98,8 @@ public class CategoryAction extends BaseAction {
 	
 
 	/**
-	 * 【1】添加大类别信息(包括图片)
-	 * 【1】先添加大类别信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
+	 * 【1】添加一级分类信息(包括图片)
+	 * 【1】先添加一级分类信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
 	 * @return
 	 * @throws Exception
 	 */
@@ -111,7 +111,7 @@ public class CategoryAction extends BaseAction {
 		PrintWriter out = null;
 		try {
 			out = this.response.getWriter();
-			// 判断大类别编号或大类名称是否已存在
+			// 判断一级分类编号或大类名称是否已存在
 			String f = this.categoryService.bgclist(bigCategory.getBgcId(),bigCategory.getBgcName());
 
 			if (f == "bgcId_exist") {
@@ -135,9 +135,9 @@ public class CategoryAction extends BaseAction {
 	}
 	
 	/**
-	 * 【2】大类别封面图片上传(可多个)
-	 * 大类别封面上传，(大类别封面是在大类别实体里)
-	 * 先添加大类别信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
+	 * 【2】一级分类封面图片上传(可多个)
+	 * 一级分类封面上传，(一级分类封面是在一级分类实体里)
+	 * 先添加一级分类信息，返回该大类id给【2】图片上传用，把图片路径保存到该大类id，更新实体
 	 * @return
 	 * @throws Exception
 	 */
@@ -166,7 +166,7 @@ public class CategoryAction extends BaseAction {
 		
 				bigCategory.setBgcImgUrl(list.get(i).getPicUrl());//设置实体中的图片路径
 				
-				this.categoryService.updatebgc(bigCategory);//再更新大类别实体
+				this.categoryService.updatebgc(bigCategory);//再更新一级分类实体
 			}
 			out = this.response.getWriter();
 			response.setContentType("application/json");
@@ -194,13 +194,13 @@ public class CategoryAction extends BaseAction {
 		try {
 			out = this.response.getWriter();
  			String bid = this.request.getParameter("bid");
- 			//根据大类id查找该大类别对应的小类别集合
+ 			//根据大类id查找该一级分类对应的二级分类集合
  			List<SmallCategory> scllist = this.categoryService.findslcbybid(bid);
- 			//逐个删除该大类别下对应的小类别
+ 			//逐个删除该一级分类下对应的二级分类
  			if(scllist!=null&&scllist.size()>0){
  				this.categoryService.delscllist(scllist);
  			}
- 			//根据id删除大类别
+ 			//根据id删除一级分类
  			this.categoryService.delbgcbyid(bid);
  			result = "bgcdel_success";
  			out.write(result);
@@ -216,7 +216,7 @@ public class CategoryAction extends BaseAction {
 	}
 
 	/**
-	 * 跳转到修改大类别信息页面，并根据id查询大类别信息并传到修改页面
+	 * 跳转到修改一级分类信息页面，并根据id查询一级分类信息并传到修改页面
 	 * 注意:跳转不能混用return是Struts2的;out.write是ajax的
 	 * struts2的直接request;ajax就结果集
 	 * @return
@@ -237,7 +237,7 @@ public class CategoryAction extends BaseAction {
 	}
 	
 	/**
-	 * 修改大类别信息
+	 * 修改一级分类信息
 	 * @return
 	 */
 	public String bgcUpdate(){
@@ -251,7 +251,7 @@ public class CategoryAction extends BaseAction {
 			this.categoryService.updatebgc(bigCategory);
 			
 			result.put("status","update_success");
-			result.put("id",bigCategory.getId());//回传id给图片上传绑定对应的大类别
+			result.put("id",bigCategory.getId());//回传id给图片上传绑定对应的一级分类
 		} catch(Exception e){
 			e.printStackTrace();
 			result.put("status","update_error");
@@ -265,10 +265,10 @@ public class CategoryAction extends BaseAction {
 	
 	/***************************************************/
 
-	/**************** 小类别管理 ***************************/
+	/**************** 二级分类管理 ***************************/
 
 	/**
-	 * 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
+	 * 分页查询所有二级分类,按一级分类名称查询或按二级分类名称模糊查询
 	 * @return
 	 * @throws Exception
 	 */
@@ -281,7 +281,7 @@ public class CategoryAction extends BaseAction {
 			String bgcName = this.request.getParameter("bgcName");
 			PageModel<SmallCategory> smallCategory = new PageModel<SmallCategory>();
 			this.setPageModel(smallCategory);
-			// 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
+			// 分页查询所有二级分类,按一级分类名称查询或按二级分类名称模糊查询
 			this.categoryService.findslc(smallCategory, bgcName,slcName);
 
 			out.write(PageUtils.setModelJson(smallCategory));
@@ -324,7 +324,7 @@ public class CategoryAction extends BaseAction {
 	}
 
 	/**
-	 * 跳转到添加小类别信息页面，查询所有大类别集合并传过去小类别添加页面
+	 * 跳转到添加二级分类信息页面，查询所有一级分类集合并传过去二级分类添加页面
 	 * @return
 	 * @throws Exception
 	 */
@@ -341,8 +341,8 @@ public class CategoryAction extends BaseAction {
 	}
 	
 	/**
-	 * 【1】添加小类别信息(包括图片)
-	 * 【1】先添加小类别信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
+	 * 【1】添加二级分类信息(包括图片)
+	 * 【1】先添加二级分类信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
 	 * @return
 	 * @throws Exception
 	 */
@@ -354,7 +354,7 @@ public class CategoryAction extends BaseAction {
 		PrintWriter out = null;
 		try {
 			out = this.response.getWriter();
-			// 判断大类别编号或大类名称是否已存在
+			// 判断一级分类编号或大类名称是否已存在
 			String f = this.categoryService.slclist(smallCategory.getSlcId(),smallCategory.getSlcName());
 
 			if (f == "slcId_exist") {
@@ -378,9 +378,9 @@ public class CategoryAction extends BaseAction {
 	}
 	
 	/**
-	 * 【2】小类别封面图片上传(可多个)
-	 * 小类别封面上传，(小类别封面是在小类别实体里)
-	 * 先添加小类别信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
+	 * 【2】二级分类封面图片上传(可多个)
+	 * 二级分类封面上传，(二级分类封面是在二级分类实体里)
+	 * 先添加二级分类信息，返回该小类id给【2】图片上传用，把图片路径保存到该小类id，更新实体
 	 * @return
 	 * @throws Exception
 	 */
@@ -409,7 +409,7 @@ public class CategoryAction extends BaseAction {
 		
 				smallCategory.setSlcImgUrl(list.get(i).getPicUrl());//设置实体中的图片路径
 				
-				this.categoryService.updateslc(smallCategory);//再更新小类别实体
+				this.categoryService.updateslc(smallCategory);//再更新二级分类实体
 			}
 			out = this.response.getWriter();
 			response.setContentType("application/json");
@@ -427,14 +427,14 @@ public class CategoryAction extends BaseAction {
 
 	
 	/**
-	 * 跳转到修改小类别信息页面
-	 * 将大类别集合以及根据id查询到该小类别的信息转发到修改页面
+	 * 跳转到修改二级分类信息页面
+	 * 将一级分类集合以及根据id查询到该二级分类的信息转发到修改页面
 	 * @return
 	 * @throws Exception
 	 */
 	public String edit_slc() throws Exception{
 		try{
-			//将大类别集合以及根据id查询到该小类别的信息转发到修改页面
+			//将一级分类集合以及根据id查询到该二级分类的信息转发到修改页面
 			this.request.setAttribute("bgclist", this.categoryService.findbgclist());
 			this.request.setAttribute("smallCategory", this.categoryService.findslcbyId(smallCategory.getId()));
 			
@@ -449,8 +449,8 @@ public class CategoryAction extends BaseAction {
 	
 	
 	/**
-	 * 修改小类别信息
-	 * 回传id给图片上传绑定对应的大类别
+	 * 修改二级分类信息
+	 * 回传id给图片上传绑定对应的一级分类
 	 * @return
 	 */
 	public String slcUpdate(){
@@ -465,7 +465,7 @@ public class CategoryAction extends BaseAction {
 			this.categoryService.updateslc(smallCategory);
 			
 			result.put("status","update_success");
-			result.put("id",smallCategory.getId());//回传id给图片上传绑定对应的小类别
+			result.put("id",smallCategory.getId());//回传id给图片上传绑定对应的二级分类
 		} catch(Exception e){
 			e.printStackTrace();
 			result.put("status","update_error");

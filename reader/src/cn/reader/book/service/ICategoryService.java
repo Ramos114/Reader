@@ -10,16 +10,16 @@ import cn.reader.core.page.PageModel;
 
 public interface ICategoryService extends BaseService {
 
-	/************** 大类别管理 ***********************/
+	/************** 一级分类管理 ***********************/
 	/**
-	 * 查询大类别集合信息
+	 * 查询一级分类集合信息
 	 * @return
 	 * @throws Exception
 	 */
 	public List<BigCategory> findbgclist()throws Exception;
 	
 	/**
-	 * 分页查询所有大类别,按大类别名称查询
+	 * 分页查询所有一级分类,按一级分类名称查询
 	 * @param bigCategory
 	 * @param bgcName
 	 * @throws Exception
@@ -27,7 +27,7 @@ public interface ICategoryService extends BaseService {
 	public void findbgcbybgcName(PageModel<BigCategory> bigCategory, String bgcName) throws Exception;
 	
 	/**
-	 * 根据id查找大类别
+	 * 根据id查找一级分类
 	 * @param id
 	 * @return
 	 * @throws Exception
@@ -35,7 +35,7 @@ public interface ICategoryService extends BaseService {
 	public BigCategory findbgcbyId(String id) throws Exception;
 	
 	/**
-	 * 判断大类别编号或大类名称是否已存在
+	 * 判断一级分类编号或大类名称是否已存在
 	 * @param bgcId
 	 * @param bgcName
 	 * @return
@@ -44,31 +44,31 @@ public interface ICategoryService extends BaseService {
 	public String bgclist(String bgcId,String bgcName)throws Exception;
 	
 	/**
-	 * 更新大类别实体
+	 * 更新一级分类实体
 	 * @param bigCategory
 	 * @throws Exception
 	 */
 	public void updatebgc(BigCategory bigCategory)throws Exception;
 	
 	/**
-	 * 保存大类别实体
+	 * 保存一级分类实体
 	 * @param bigCategory
 	 * @throws Exception
 	 */
 	public void savebgc(BigCategory bigCategory) throws Exception;
 	
 	/**
-	 * 根据id删除大类别
+	 * 根据id删除一级分类
 	 * @param bid
 	 */
 	public void delbgcbyid(String bid) throws Exception;
 
 	/*******************************************/
 
-	/************** 小类别管理 ***********************/
+	/************** 二级分类管理 ***********************/
 
 	/**
-	 * 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
+	 * 分页查询所有二级分类,按一级分类名称查询或按二级分类名称模糊查询
 	 * @param smallCategory
 	 * @param bgcName
 	 * @param slcName
@@ -79,7 +79,7 @@ public interface ICategoryService extends BaseService {
 	public String slclist(String slcId,String slcName)throws Exception;//判断小类编号或小类名称是否已存在
 	
 	/**
-	 * 根据大类id查找该大类别对应的小类别集合
+	 * 根据大类id查找该一级分类对应的二级分类集合
 	 * @param mid
 	 * @return
 	 * @throws Exception
@@ -88,7 +88,7 @@ public interface ICategoryService extends BaseService {
 
 	
 	/**
-	 * 删除小类别集合
+	 * 删除二级分类集合
 	 * @param scllist
 	 * @throws Exception
 	 */
@@ -106,7 +106,7 @@ public interface ICategoryService extends BaseService {
 	public SmallCategory findslcbyId(String id) throws Exception;
 	
 	/**
-	 * 更新小类别实体
+	 * 更新二级分类实体
 	 * @param smallCategory
 	 * @throws Exception
 	 */

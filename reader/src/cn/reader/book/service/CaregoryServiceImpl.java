@@ -21,7 +21,7 @@ import cn.reader.core.page.PageModel;
 @Service("categoryService")
 public class CaregoryServiceImpl extends BaseServiceImpl implements ICategoryService {
 
-	// 注入大类别Dao
+	// 注入一级分类Dao
 	@Resource
 	private CategoryDao categoryDao;
 
@@ -29,10 +29,10 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 		this.categoryDao = categoryDao;
 	}
 
-	/************** 大类别管理 ***********************/
+	/************** 一级分类管理 ***********************/
 	
 	/**
-	 * 查询大类别集合
+	 * 查询一级分类集合
 	 */
 	@Override
 	public List<BigCategory> findbgclist() throws Exception {
@@ -40,7 +40,7 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 	
 	/**
-	 * 分页查询所有大类别,按大类别名称查询
+	 * 分页查询所有一级分类,按一级分类名称查询
 	 */
 	@Override
 	public void findbgcbybgcName(PageModel<BigCategory> bigCategory, String bgcName) throws Exception {
@@ -48,7 +48,7 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 	
 	/**
-	 * 根据id删除大类别
+	 * 根据id删除一级分类
 	 */
 	@Override
 	public void delbgcbyid(String bid) throws Exception{
@@ -56,7 +56,7 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 	
 	/**
-	 * 根据id查找大类别
+	 * 根据id查找一级分类
 	 */
 	@Override
 	public BigCategory findbgcbyId(String id) throws Exception {
@@ -64,7 +64,7 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 	
 	/**
-	 * 判断大类别编号或大类名称是否已存在
+	 * 判断一级分类编号或大类名称是否已存在
 	 */
 	@Override
 	public String bgclist(String bgcId, String bgcName) throws Exception {
@@ -72,14 +72,14 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 
 	/**
-	 * 保存大类别实体
+	 * 保存一级分类实体
 	 */
 	@Override
 	public void savebgc(BigCategory bigCategory) throws Exception {
 		this.categoryDao.save(bigCategory);
 	}
 
-	//更新大类别实体
+	//更新一级分类实体
 	@Override
 	public void updatebgc(BigCategory bigCategory) throws Exception {
 		this.categoryDao.updatebgc(bigCategory);
@@ -87,10 +87,10 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	
 	/*******************************************/
 
-	/************** 小类别管理 ***********************/
+	/************** 二级分类管理 ***********************/
 	
 	/**
-	 * 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
+	 * 分页查询所有二级分类,按一级分类名称查询或按二级分类名称模糊查询
 	 */
 	@Override
 	public void findslc(PageModel<SmallCategory> smallCategory, String bgcName,String slcName) throws Exception {
@@ -99,7 +99,7 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 
 
 	/**
-	 * 根据大类id查找该大类别对应的小类别集合
+	 * 根据大类id查找该一级分类对应的二级分类集合
 	 */
 	@Override
 	public List<SmallCategory> findslcbybid(String bid) throws Exception {
@@ -107,7 +107,7 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 	
 	/**
-	 * 删除小类别集合
+	 * 删除二级分类集合
 	 */
 	@Override
 	public void delscllist(List<SmallCategory> scllist) throws Exception {
@@ -136,7 +136,7 @@ public class CaregoryServiceImpl extends BaseServiceImpl implements ICategorySer
 	}
 
 	/**
-	 * 更新小类别实体
+	 * 更新二级分类实体
 	 */
 	@Override
 	public void updateslc(SmallCategory smallCategory) throws Exception {

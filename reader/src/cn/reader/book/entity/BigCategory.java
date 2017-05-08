@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import cn.reader.core.base.BaseEntity;
 
 /**
- * 大类别  实体
+ * 一级分类  实体
  * @author LMX
  * 
  */
@@ -21,38 +21,38 @@ public class BigCategory extends BaseEntity{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * 大类别编号,唯一
+	 * 一级分类编号,唯一
 	 */
 	@Column(unique=true)
 	private String bgcId;
 	
 	/**
-	 * 大类别名称 (网文男频、网文女频)
+	 * 一级分类名称 (网文男频、网文女频)
 	 */
 	@Column
 	private String bgcName;
 	
 	/**
-	 * 大类别英文名keyName(male、female)
+	 * 一级分类英文名keyName(male、female)
 	 * 注意不能用key，会有冲突
 	 */
 	@Column
 	private String keyName;
 	
 	/**
-	 * 大类别说明 
+	 * 一级分类说明 
 	 */
 	@Column
 	private String bgcContent;
 	
 	/**
-	 * 大类别副说明 
+	 * 一级分类副说明 
 	 */
 	@Column
 	private String bgcRcontent;
 	
 	/**
-	 * 大类别图片地址 
+	 * 一级分类图片地址 
 	 */
 	@Column
 	private String bgcImgUrl;

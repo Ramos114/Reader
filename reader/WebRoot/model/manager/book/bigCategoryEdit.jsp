@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 
-<title>修改大类别信息</title>
+<title>修改一级分类信息</title>
 <div class="bg-light lter b-b wrapper-md">
-	<h1 class="m-n font-thin h3">大类别管理</h1>
+	<h1 class="m-n font-thin h3">一级分类管理</h1>
 </div>
 <div class="panel panel-default">
-	<div class="panel-heading font-bold">修改大类别</div>
+	<div class="panel-heading font-bold">修改一级分类</div>
 	<div class="panel-body">
 		<div class="col-sm-12">
 			<div class="panel panel-default">
@@ -22,43 +22,43 @@
   					<!-- (可选)保存原图片地址，可不修改图片，与上传图片无关 -->
   					<input type="hidden" id="bgcImgUrl" name="bigCategory.bgcImgUrl" value="${bigCategory.bgcImgUrl }">
 				
-					<p class="text-muted">大类别信息</p>
+					<p class="text-muted">一级分类信息</p>
 					
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">大类别编号</label>
+						<label class="col-sm-2 control-label">一级分类编号</label>
 						<div class="col-sm-4">
 							<%-- <input type="hidden" id="id" value="${bigCategory.id }"> --%><!-- 隐藏域id -->
-							<input type="text" class="form-control" placeholder="请输入大类别编号" id="bgcId" name="bigCategory.bgcId" value="${bigCategory.bgcId }">
+							<input type="text" class="form-control" placeholder="请输入一级分类编号" id="bgcId" name="bigCategory.bgcId" value="${bigCategory.bgcId }">
 						</div>
 					</div>
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">大类别名称</label>
+						<label class="col-sm-2 control-label">一级分类名称</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control" placeholder="请输入大类别名称，如'网文男频'" id="bgcName" name="bigCategory.bgcName" value="${bigCategory.bgcName }">
+							<input type="text" class="form-control" placeholder="请输入一级分类名称，如'网文男频'" id="bgcName" name="bigCategory.bgcName" value="${bigCategory.bgcName }">
 						</div>
 					</div>
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">大类别说明</label>
+						<label class="col-sm-2 control-label">一级分类说明</label>
 						<div class="col-sm-4">
-							<textarea rows="4" id="bgcContent" name="bigCategory.bgcContent" class="form-control" placeholder="请输入大类别说明">${bigCategory.bgcContent }</textarea>
+							<textarea rows="4" id="bgcContent" name="bigCategory.bgcContent" class="form-control" placeholder="请输入一级分类说明">${bigCategory.bgcContent }</textarea>
 							<i id="bgcContent_check" class=""></i>
 						</div>
 					</div>
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">大类别副说明</label>
+						<label class="col-sm-2 control-label">一级分类副说明</label>
 						<div class="col-sm-4">
-							<textarea rows="4" id="bgcRcontent" name="bigCategory.bgcRcontent" class="form-control" placeholder="请输入大类别副说明">${bigCategory.bgcRcontent }</textarea>
+							<textarea rows="4" id="bgcRcontent" name="bigCategory.bgcRcontent" class="form-control" placeholder="请输入一级分类副说明">${bigCategory.bgcRcontent }</textarea>
 							<i id="bgcRcontent_check" class=""></i>
 						</div>
 					</div>
 					<div class="line line-dashed b-b line-lg pull-in"></div>
 
 					<div class="form-group">
-						<label class="col-sm-4 control-label">大类别图片</label> 
+						<label class="col-sm-4 control-label">一级分类图片</label> 
 						<img src="${basePath }${pageContext.request.contextPath}/${bigCategory.bgcImgUrl}" width="15%;" height="8%;" />
 					</div>
 
@@ -113,7 +113,7 @@
 	});
 
 
-	//修改大类别信息
+	//修改一级分类信息
 	function update_bgc() {
 		
 		if ($("#bgcId").val() == null || $("#bgcId").val().length == 0) {

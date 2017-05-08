@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import cn.reader.core.base.BaseEntity;
 
 /**
- * 小类别  实体
+ * 二级分类  实体
  * @author LMX
  *
  */
@@ -24,31 +24,31 @@ public class SmallCategory extends BaseEntity{
 	private static final long serialVersionUID = 1L;	
 
 	/**
-	 * 小类别编号,唯一
+	 * 二级分类编号,唯一
 	 */
 	@Column(unique=true)
 	private String slcId;
 	
 	/**
-	 * 小类别名称
+	 * 二级分类名称
 	 */
 	@Column
 	private String slcName;
 
 	/**
-	 * 小类别说明 
+	 * 二级分类说明 
 	 */
 	@Column
 	private String slcContent;
 	
 	/**
-	 * 小类别封面 地址 
+	 * 二级分类封面 地址 
 	 */
 	@Column
 	private String slcImgUrl;
 	
 	/*
-	 * 与大类别存在多对一的关系
+	 * 与一级分类存在多对一的关系
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn

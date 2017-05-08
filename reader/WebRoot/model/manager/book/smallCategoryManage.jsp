@@ -6,9 +6,9 @@ table th{white-space:nowrap;overflow:hidden; text-overflow:ellipsis;}
 table {table-layout:fixed;}
 </style>
 
-<title>小类别管理</title>
+<title>二级分类管理</title>
 <div class="bg-light lter b-b wrapper-md">
-	<h1 class="m-n font-thin h3">小类别管理</h1>
+	<h1 class="m-n font-thin h3">二级分类管理</h1>
 </div>
 <div class="wrapper-md">
 	<div class="panel panel-default">
@@ -26,7 +26,7 @@ table {table-layout:fixed;}
 			<div class="col-sm-3"></div>
 			<div class="col-sm-4">
 				<div class="input-group">
-					<input type="text" id="slcName" class="input-sm form-control" placeholder="请输入小类别名称"> 
+					<input type="text" id="slcName" class="input-sm form-control" placeholder="请输入二级分类名称"> 
 						
 						<span class="input-group-btn">
 						<button class="btn btn-sm btn-icon btn-success" id="findbyslcName">
@@ -40,10 +40,10 @@ table {table-layout:fixed;}
 			<table class="table table-striped b-t b-light">
 				<thead>
 					<tr>
-						<th style="width:15%">小类别编号</th>
-						<th style="width:20%">小类别名称</th>
+						<th style="width:15%">二级分类编号</th>
+						<th style="width:20%">二级分类名称</th>
 						<th style="width:20%">类别说明</th>
-						<th style="width:15%">所属大类别</th>
+						<th style="width:15%">所属一级分类</th>
 						<th style="width:15%">类别封面</th>
 						<th style="width:15%">操作</th>
 					</tr>
@@ -141,7 +141,7 @@ table {table-layout:fixed;}
 			 $("#findbybgcName").append("<option value='"+(i+1)+"'>"+data.result[i].bgcName+"</option>");
 		}
 	}
-	doRequest(1,null,null);//【2】分页查询小类别
+	doRequest(1,null,null);//【2】分页查询二级分类
 	
 	/*分页方法*/
 	$("#page_everySize").change(function() { //点击改变设置页码记录数
@@ -180,7 +180,7 @@ table {table-layout:fixed;}
 	}
 
 	//ajax请求table数据
-	//【2】分页查询小类别，并可以按大类别名称查询或按小类别名称模糊查询
+	//【2】分页查询二级分类，并可以按一级分类名称查询或按二级分类名称模糊查询
 	function doRequest(currentPage,bgcName,slcName) {
 		$.ajax({
 					type : 'post',

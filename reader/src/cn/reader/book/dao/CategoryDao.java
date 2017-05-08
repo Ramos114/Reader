@@ -17,13 +17,13 @@ import cn.reader.core.page.PageModel;
 @Repository(value = "categoryDao")
 public class CategoryDao extends BaseDao {
 
-	/************** 大类别管理 ***********************/
+	/************** 一级分类管理 ***********************/
 
 	private List<BigCategory> list1;
 	private List<BigCategory> list2;
 
 	/**
-	 * 查询大类别集合
+	 * 查询一级分类集合
 	 * @return
 	 * @throws Exception
 	 */
@@ -33,7 +33,7 @@ public class CategoryDao extends BaseDao {
 	}
 	
 	/**
-	 * 分页查询所有大类别,按大类别名称查询
+	 * 分页查询所有一级分类,按一级分类名称查询
 	 * @param bigCategory
 	 * @param bgcName
 	 * @throws Exception
@@ -50,7 +50,7 @@ public class CategoryDao extends BaseDao {
 	}
 	
 	/**
-	 * 根据id查找大类别
+	 * 根据id查找一级分类
 	 * @param id
 	 * @return
 	 * @throws Exception
@@ -66,7 +66,7 @@ public class CategoryDao extends BaseDao {
 	}
 
 	/**
-	 * 判断大类别编号或大类名称是否已存在	
+	 * 判断一级分类编号或大类名称是否已存在	
 	 * @param bgcId
 	 * @param bgcName
 	 * @return
@@ -95,7 +95,7 @@ public class CategoryDao extends BaseDao {
 	}
 	
 	/**
-	 * 更新大类别实体
+	 * 更新一级分类实体
 	 * @param bigCategory
 	 * @throws Exception
 	 */
@@ -106,10 +106,10 @@ public class CategoryDao extends BaseDao {
 	/*******************************************/
 
 
-	/************** 小类别管理 ***********************/
+	/************** 二级分类管理 ***********************/
 
 	/**
-	 * 分页查询所有小类别,按大类别名称查询或按小类别名称模糊查询
+	 * 分页查询所有二级分类,按一级分类名称查询或按二级分类名称模糊查询
 	 * @param smallCategory
 	 * @param bgcName
 	 * @param slcName
@@ -128,7 +128,7 @@ public class CategoryDao extends BaseDao {
 	}
 
 	/**
-	 * 根据大类id查找该大类别对应的小类别集合
+	 * 根据大类id查找该一级分类对应的二级分类集合
 	 * @param bid
 	 * @return
 	 * @throws Exception
@@ -187,7 +187,7 @@ public class CategoryDao extends BaseDao {
 		}
 
 	/**
-	 * 更新小类别实体
+	 * 更新二级分类实体
 	 * @param smallCategory
 	 * @throws Exception
 	 */
