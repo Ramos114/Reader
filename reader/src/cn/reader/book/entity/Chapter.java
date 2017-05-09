@@ -41,6 +41,12 @@ public class Chapter extends BaseEntity{
 	@Column
 	private Integer word_count;
 	
+	/**
+	 * 章节内容(每章对应一个内容)
+	 */
+	@Column
+	private String content;
+	
 	
 	/*
 	 * 与图书存在多对一的关系

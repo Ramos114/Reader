@@ -150,12 +150,12 @@
     	},
     	cache:false					//不缓存
     	});
-	}
+	};
 	
 	//加入无数据div
 	function addNullMessage(){
 		$("#tableTbody").append("<tbody><tr><th>暂无数据</th></tr></tbody>");
-	}
+	};
 	
 	//动态生成查询table
 	function setDataTable(data){
@@ -167,14 +167,14 @@
 //			addDataToTable(data);
 		}
 
-	}
+	};
 	
 
 	//点击图片时,显示大图
 	function showBigImg(imgUrl){
 		$('#imgInModalID').attr("src", '${basePath}${pageContext.request.contextPath}'+imgUrl);
 		$('#imgModal').modal('show');
-	}
+	};
 	
 	//返回按钮
     function backManage(){
@@ -184,6 +184,6 @@
 	//编辑图书
 	function EditProduct(id){
 		toSkit("${basePath }${pageContext.request.contextPath}/ProductAction!productEditUI.action?product.id="+id) ;
-	}
+	};
 
 </script>
