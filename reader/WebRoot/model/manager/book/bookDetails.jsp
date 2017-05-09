@@ -6,6 +6,7 @@
 .thumb-md {display: inline-block;width: 90px;}
 .m-r {margin-right: 55px;}
 -->
+
 </style>
 
 <div class="bg-light lter b-b wrapper-md">
@@ -59,6 +60,14 @@
 							<tr>
 								<th>简介：</th><td colspan="2">{{dataObj.book.summary}}</td>
 							</tr>
+							
+							<tr >
+								<th>章节：</th>
+								<td id="ChapterCon" colspan="2" v-for="item in dataObj2.list" style="float: left">
+									<a href="javascript:findContent('{{item.id}}')">{{item.chapterTitle}}</a>
+									<input type="hidden" id="sendContent" value="{{item.content}}">
+								</td>
+							</tr>
 <!-- 							
 							<tr>
 								<th>累计评论数：</th><td>{{dataObj.book.title}}</td>
@@ -93,6 +102,11 @@
 					</div>
 				</div>
 				
+				<!--  -->
+				<div id="show" style="display: none;">
+					<textarea rows="18" cols="80%" style="padding: 10px;text-indent: 2em;">{{dataObj3.chapter.content}}</textarea>
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -115,13 +129,16 @@
             el: '#bookD',
             data: {
                 dataObj: {},
+                dataObj2: {},
+                dataObj3: {},
             }
     });
 
-	//调用ajax请求方法
-	doRequest();
+	doRequest();//ajax请求table数据,根据图书ID查询图书信息
+	findChapter();//根据图书ID查询章节信息
+
 	
-	//ajax请求table数据
+	//ajax请求table数据,根据图书ID查询图书信息
 	function doRequest(){		//alert('${bookId}');
 		$.ajax({
     	type:'post',
@@ -148,7 +165,69 @@
 				addNullMessage();
 			}
     	},
-    	cache:false					//不缓存
+    	cache:false,				//不缓存
+    	});
+	};
+	
+	//根据图书ID查询章节信息
+	function findChapter(){		//alert('${bookId}');
+		$.ajax({
+    	type:'post',
+    	url:"${basePath}${pageContext.request.contextPath}/BookAction!findChapterByBookId.action",
+    	data:{
+    		"book.id" : "${bookId}",
+    		},  
+     	dataType:'json',  
+    	success:function(data,status){
+    		if (status == "success") {
+    			
+    			if(data.status == "success"){
+    				//if(){}
+    				//Vue响应式渲染数据--数据写入table
+					bookD.$set("dataObj2", data);
+    			}else{
+    				alert("查询失败,编码的错误!");
+    				addNullMessage();
+    			}
+
+			} else {
+				alert("查询失败,ajax请求返回失败!");
+				addNullMessage();
+			}
+    	},
+    	cache:false,			//不缓存
+    	});
+	};
+	
+	//根据章节ID查询章节信息
+	function findContent(chapterId){		//alert('${bookId}');
+		$.ajax({
+    	type:'post',
+    	url:"${basePath}${pageContext.request.contextPath}/BookAction!findChapterById.action",
+    	data:{
+    		"chapter.id" : chapterId,
+    		},  
+     	dataType:'json',  
+    	success:function(data,status){
+    		if (status == "success") {
+    			
+    			if(data.status == "success"){
+    				//if(){}
+    				//Vue响应式渲染数据--数据写入table
+					bookD.$set("dataObj3", data);
+					//当点击章节时,显示
+					$("#show").show();
+    			}else{
+    				alert("查询失败,编码的错误!");
+    				addNullMessage();
+    			}
+
+			} else {
+				alert("查询失败,ajax请求返回失败!");
+				addNullMessage();
+			}
+    	},
+    	cache:false,			//不缓存
     	});
 	};
 	
@@ -185,5 +264,7 @@
 	function EditProduct(id){
 		toSkit("${basePath }${pageContext.request.contextPath}/ProductAction!productEditUI.action?product.id="+id) ;
 	};
+	
+	
 
 </script>
