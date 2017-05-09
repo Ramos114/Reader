@@ -298,14 +298,14 @@ table {table-layout:fixed;}
 		doRequest(1);
 	});
 
-	//跳转添加大类页面
+	//跳转添加一级分类页面
 	function addbgc() {
 		toSkit("${basePath }${pageContext.request.contextPath}/model/manager/book/bigCategoryAdd.jsp");
 	}
 
-	//删除小类
+	//删除二级分类
 	function delbgc(url) {
-		var msg = "该大类可能包含小类，将会一并删除\n确定继续此操作？";
+		var msg = "该一级分类可能包含二级分类，将会一并删除\n确定继续此操作？";
 		if (confirm(msg) == true) {
 			$.ajax({
 				type : 'post',
@@ -318,7 +318,7 @@ table {table-layout:fixed;}
 							findbybgcName(1, $("#bgcName").val());
 						}
 
-						layer.msg("恭喜，大类删除成功！", {
+						layer.msg("恭喜，一级分类删除成功！", {
 							icon : 1
 						});
 					} else {

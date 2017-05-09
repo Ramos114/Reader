@@ -50,10 +50,10 @@ table {table-layout:fixed;}
             <th style="width:5%">编号</th>
             <th style="width:8%">标题</th>
             <th style="width:5%">作者</th>
-            <th style="width:7%">大类别</th>
-            <th style="width:5%">小类别</th>
+            <th style="width:7%">一级分类</th>
+            <th style="width:5%">二级分类</th>
             <th style="width:8%">版权</th>
-            <th style="width:8%">最新章节内容</th>
+    <!--         <th style="width:8%">最新章节内容</th> -->
             <th style="width:6%">更新时间</th>
             <th style="width:10%">简介</th>
     <!--    <th style="width:8%">评论数</th>     -->
@@ -67,7 +67,7 @@ table {table-layout:fixed;}
         
         <tbody id="tableTbody">
          	
-          <tr v-for="item in data.result">
+          <tr v-for="item in dataObj.result">
 <!--           
             <td style="width:20px;">
               <label class="i-checks m-b-none">
@@ -81,7 +81,7 @@ table {table-layout:fixed;}
             <td>{{item.smallCategory.bigCategory.bgcName}}</td>
             <td>{{item.smallCategory.slcName}}</td>
             <td title="{{item.rights}}">{{item.rights}}</td>
-            <td title="{{item.lastest}}">{{item.lastest}}</td>
+      <!--       <td title="{{item.lastest}}">{{item.lastest}}</td> -->
             <td title="{{item.updateTime}}">{{item.updateTime}}</td>
             <td title="{{item.summary}}">{{item.summary}}</td>
             
@@ -123,7 +123,7 @@ table {table-layout:fixed;}
             
             <td>
             <div style="white-space:normal; overflow:visible;">
-              <button class="btn btn-sm btn-icon btn-primary" title="商品详情" onclick="toSkit('${basePath }${pageContext.request.contextPath}/model/manager/pro/productDetails.jsp')"><i class="fa fa-list"></i></button>
+              <button class="btn btn-sm btn-icon btn-primary" title="图书详情" onclick="toSkit('${basePath }${pageContext.request.contextPath}/BookAction!bookDetailsUI?book.id={{item.id}}')"><i class="fa fa-list"></i></button>
               <button class="btn btn-sm btn-icon btn-info"><i class="glyphicon glyphicon-pencil"></i></button>
               <button class="btn btn-sm btn-icon btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
             </div>
@@ -179,6 +179,15 @@ table {table-layout:fixed;}
         </div>
 
 <script type="text/javascript">
+
+    //Vue框架--用于客户端渲染数据
+	var bookM;
+	bookM = new Vue({
+            el: '#bookM',
+            data: {
+                dataObj: {},
+            }
+    });
 
 	doRequest(1);
 
@@ -245,6 +254,9 @@ table {table-layout:fixed;}
     		if (status == "success") {
     			
     			if(data.status == "success"){
+    				//Vue响应式渲染数据--数据写入table
+					bookM.$set("dataObj", data);
+    				//动态生成查询table
     				setDataTable(data);	
     			}else{
     				alert("查询失败,编码的错误!");
@@ -278,8 +290,8 @@ table {table-layout:fixed;}
 		//移除页码
 		$(".pagination>li").not(":first").not(":last").remove();
 	 
-		//添加数据进表格
-		addDataToTable(data);
+/* 		//添加数据进表格
+		addDataToTable(data); */
 		
 		//设置好页码信息
 		$("#page_showPageSize").html("显示"+data.page+"-"+data.total+"页");
@@ -349,7 +361,7 @@ table {table-layout:fixed;}
 		 toSkit('${basePath }${pageContext.request.contextPath}/ProductAction!productAddUI.action');
 	}
 	
-	//数据写入table--Vue渲染
+/* 	//数据写入table--Vue渲染
 	function addDataToTable(data){
 	
 			var bookM = new Vue({
@@ -360,7 +372,7 @@ table {table-layout:fixed;}
     			}
     		});
 
-	}
+	} */
 	
 	//删除商品
 	function deleteProduct(id) {
